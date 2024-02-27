@@ -1,0 +1,17 @@
+:root {
+  --vp-c-brand-1: #FF5722;
+  --vp-c-brand-2: #F57C00;
+  --vp-button-brand-bg: #FF5722;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.container .content .main a {
+  color:#448ef7;
+}
+
+.container .content .main a:hover  {
+  color: #FF5722;
+}

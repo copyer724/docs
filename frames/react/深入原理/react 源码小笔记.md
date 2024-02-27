@@ -1,0 +1,2 @@
+- fiberRoot fiber 的根节点
+- rootFiber 组件的根节点，这也是要求 react 组件为什么只有一个根节点
