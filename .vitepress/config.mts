@@ -6,6 +6,7 @@ import timeline from "vitepress-markdown-timeline";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Thinker",
+  base: "/docs/",
   description: "A VitePress Site",
   head: [
     ["link", { rel: "icon", href: "/logo.svg" }], //favicon图标设置
