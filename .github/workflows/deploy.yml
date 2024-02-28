@@ -49,7 +49,7 @@ jobs:
       - name: Build with VitePress
         run: |
           pnpm docs:build
-          touch docs/.vitepress/dist/.nojekyll
+          touch .nojekyll # 要点 css
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
