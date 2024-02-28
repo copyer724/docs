@@ -4,7 +4,7 @@
 
 - [react18 新特性](./开发基础/01_react18%20新特性.md)
 - [memo](./开发基础/02_memo.md)
-- [forwardRef 与 ts 配合使用](./开发小技巧/forwardRef%20与%20ts%20配合使用.md)
+- [forwardRef 与 ts 配合使用](./开发基础/03_forwardRef%20与%20ts%20配合使用.md)
 - [React.Children.map 使用](./开发基础/04_React.Children.map使用.md)
 - [useReducer + ts 使用](./开发基础/05_useReducer%20+%20ts%20使用.md)
 - [prop-types 使用](./开发基础/06_prop-types使用.md)

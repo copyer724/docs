@@ -2,7 +2,7 @@
 
 ### JavaScript 开发小知识
 
-- [为什么推荐 void 0 代替 undefined](./JavaScript%20开发小知识/为什么推荐%20void%200%20代替%20undefined.md)
+- [为什么推荐 void 0 代替 undefined](./JavaScript%20开发小知识/01_推荐%20void%200%20代替%20undefined.md)
 - [模块化的基本使用](./JavaScript%20开发小知识/02_模块化的基本使用.md)
 - [es6语法专区](./JavaScript%20开发小知识/03_es6语法专区.md)
 - [dom和bom专区](./JavaScript%20开发小知识/04_dom和bom专区.md)
@@ -11,7 +11,7 @@
 
 ### JavaScript 高级
 
-- [浏览器原理：进程与线程](./JavaScript%20高级/浏览器原理：进程与线程.md)
+- [浏览器原理：进程与线程](./JavaScript%20高级/01_浏览器原理：进程与线程.md)
 - [commonjs 和 esmodule 原理探究](./JavaScript%20高级/02_commonjs%20和%20esmodule%20原理探究.md)
 - [javascript 运行环境](./JavaScript%20高级/03_javascript运行环境.md)
 - [javascript 解析环境](./JavaScript%20高级/04_javascript解析过程.md)
