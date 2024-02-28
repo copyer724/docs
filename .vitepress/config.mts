@@ -9,7 +9,7 @@ export default defineConfig({
   base: "/docs/",
   description: "A VitePress Site",
   head: [
-    ["link", { rel: "icon", href: "/logo.svg" }], //favicon图标设置
+    ["link", { rel: "icon", href: "/docs/logo.svg" }], //favicon图标设置
     [
       "meta",
       {
