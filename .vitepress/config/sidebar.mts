@@ -30,7 +30,7 @@ const sides = [
   },
   {
     text: "servers",
-    children: ["node", "express", "koa", "nest"],
+    children: ["node", "express", "koa", "nest", "sql"],
   },
   {
     text: "theory",

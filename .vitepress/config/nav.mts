@@ -59,6 +59,7 @@ export const nav: NavItem[] = [
       { text: "Express", link: "/servers/express/" },
       { text: "Koa", link: "/servers/koa/" },
       { text: "Nestjs", link: "/servers/nest/" },
+      { text: "数据库", link: "/servers/sql/" },
     ],
   },
   {
