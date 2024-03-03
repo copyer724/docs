@@ -3,10 +3,12 @@ import { nav } from "./config/nav.mts";
 import { sidebar } from "./config/sidebar.mjs";
 import timeline from "vitepress-markdown-timeline";
 
+export const baseUrl = "/docs/";
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Thinker",
-  base: "/docs/",
+  base: baseUrl,
   description: "A VitePress Site",
   head: [
     ["link", { rel: "icon", href: "/docs/logo.svg" }], //favicon图标设置

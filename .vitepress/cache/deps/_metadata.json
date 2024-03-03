@@ -2,30 +2,39 @@
   "hash": "f6570cf8",
   "configHash": "cb89d2b5",
   "lockfileHash": "1103f986",
-  "browserHash": "e6878dbc",
+  "browserHash": "d5ced935",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "a319dc45",
+      "fileHash": "057d8e8e",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "9fe1fb39",
+      "fileHash": "1c6766d9",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.1_vue@3.4.5/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "ade8bfa1",
+      "fileHash": "4d21d6ec",
+      "needsInterop": false
+    },
+    "vitepress-markdown-timeline": {
+      "src": "../../../node_modules/.pnpm/vitepress-markdown-timeline@1.2.1/node_modules/vitepress-markdown-timeline/dist/es/index.es.js",
+      "file": "vitepress-markdown-timeline.js",
+      "fileHash": "b61ce6a0",
       "needsInterop": false
     }
   },
   "chunks": {
     "chunk-KT7DAYJA": {
       "file": "chunk-KT7DAYJA.js"
+    },
+    "chunk-LQ2VYIYD": {
+      "file": "chunk-LQ2VYIYD.js"
     }
   }
 }

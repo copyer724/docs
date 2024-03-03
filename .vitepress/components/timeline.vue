@@ -7,7 +7,12 @@
         :key="index"
       >
         {{ item.title }}
-        <div :class="it.class" v-for="(it, idx) in item.children" :key="idx">
+        <div
+          :class="it.class"
+          v-for="(it, idx) in item.children"
+          @click="btnPath(it?.url)"
+          :key="idx"
+        >
           <div class="date">
             {{ it.date }}
           </div>
@@ -22,64 +27,11 @@
 
 <script setup>
 import { ref } from "vue";
-const timelineList = ref([
-  {
-    class: "desc",
-    title: "昨日重现",
-    date: "",
-    children: [],
-  },
-  {
-    class: "title",
-    title: "2023",
-    date: "",
-    children: [
-      {
-        class: "item",
-        title: "分布式存储系统——Ceph 部署使用",
-        date: "12-25",
-        children: [],
-      },
-      {
-        class: "item",
-        title: "使用 Axis 调用 WebService 服务接口",
-        date: "12-20",
-        children: [],
-      },
-      {
-        class: "item",
-        title: "树洞",
-        date: "10-22",
-        children: [],
-      },
-    ],
-  },
-  {
-    class: "title",
-    title: "2023",
-    date: "",
-    children: [
-      {
-        class: "item",
-        title: "分布式存储系统——Ceph 部署使用",
-        date: "12-25",
-        children: [],
-      },
-      {
-        class: "item",
-        title: "使用 Axis 调用 WebService 服务接口",
-        date: "12-20",
-        children: [],
-      },
-      {
-        class: "item",
-        title: "树洞",
-        date: "10-22",
-        children: [],
-      },
-    ],
-  },
-]);
+import { timelineList as configList } from "../config/timeline.mjs";
+const timelineList = ref(configList);
+const btnPath = (url) => {
+  window.location.href = url;
+};
 </script>
 
 <style scoped>
@@ -122,8 +74,8 @@ const timelineList = ref([
   margin-top: -4px;
   width: 8px;
   height: 8px;
-  background: #FF5722;
-  border: 1px solid #FF5722;
+  background: #ff5722;
+  border: 1px solid #ff5722;
   border-radius: 50%;
 }
 
@@ -145,8 +97,8 @@ const timelineList = ref([
   margin-top: -4px;
   width: 8px;
   height: 8px;
-  background: #FF5722;
-  border: 1px solid #FF5722;
+  background: #ff5722;
+  border: 1px solid #ff5722;
   border-radius: 50%;
 }
 
@@ -189,11 +141,12 @@ const timelineList = ref([
 }
 
 .item:hover {
-  color: #FF5722;
+  color: #ff5722;
   transform: translate(50px);
 }
 .item:hover .date::before {
-  background: #FF5722;
-  border: 1px solid #FF5722;
+  background: #ff5722;
+  border: 1px solid #ff5722;
 }
 </style>
+../config/timeline.mts../config/timeline../config/timeline.mts

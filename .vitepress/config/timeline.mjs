@@ -1,0 +1,25 @@
+const baseUrl = "/docs/";
+const _2024 = [
+  {
+    class: "item",
+    title: "2024，思考未来学习的方向",
+    date: "03-03",
+    url: `${baseUrl}life/2024 思考学习的方向.html`,
+    children: [],
+  },
+];
+
+export const timelineList = [
+  {
+    class: "desc",
+    title: "昨日重现",
+    date: "",
+    children: [],
+  },
+  {
+    class: "title",
+    title: "2024",
+    date: "",
+    children: _2024,
+  },
+];

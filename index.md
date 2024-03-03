@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: "Thinker 技术空间站"
-  text: "321321"
+  text: ""
   tagline: 持续努力，持续学习，为站点纳入新鲜血液。
   image:
     src: /home.svg
@@ -12,8 +12,8 @@ hero:
     - theme: brand
       text: Welcome
       link: basics/hc/
-    - theme: alt
-      text: 个人感悟
+    - theme: brand
+      text: Think Life
       link: /life/index
     - theme: alt
       text: About me
