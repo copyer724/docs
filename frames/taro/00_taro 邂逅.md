@@ -114,3 +114,47 @@ export const config = {
 /* app.less */
 @import ("./assets/iconfont/index.css");
 ```
+
+## 页面间的通信
+
+### 正向：url
+
+**方式一**： url 的方式 `?name=james&age=12`
+
+获取参数:
+
+1. `onLoad` 或者 `useLoad` 中的 options 拿取信息
+2. `Taro.getCurrentInstance().router.params` 拿取路由信息
+
+### 正向：eventChannel （仅支持小程序）
+
+```ts
+// Home Page
+Taro.navigateTo({
+  url: "/detail",
+  success: function (res) {
+    // 通过eventChannel向被打开页面传送数据
+    res.eventChannel.emit("homeData", { data: "传递给detail的数据" });
+  },
+});
+```
+
+```ts
+// Detail Page
+onLoad: function(option){
+  const $intance = Taro.getCurrentInstance()
+  const eventChannel = $intance.page.getOpenerEventChannel()
+  // 监听 homeData 事件，获取上一页面通过eventChannel传送到当前页面的数据
+  eventChannel.on('homeData', function(data) {
+    console.log(data) // 获取到数据
+  })
+}
+```
+
+### 方向
+
+```ts
+// 反向传递
+eventChannel.emit("acceptDataFromOpenedPage", { data: "test" });
+eventChannel.emit("someEvent", { data: "test" });
+```
