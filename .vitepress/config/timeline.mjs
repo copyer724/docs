@@ -7,6 +7,13 @@ const _2024 = [
     url: `${baseUrl}life/2024 思考学习的方向.html`,
     children: [],
   },
+  {
+    class: "item",
+    title: "面试准备",
+    date: "03-07",
+    url: `${baseUrl}life/面试准备.html`,
+    children: [],
+  },
 ];
 
 export const timelineList = [

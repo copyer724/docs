@@ -9,6 +9,10 @@
 - [setup](./基础语法/05_setup.md)
 - [defineModal 使用和原理](./基础语法/06_defineModal%20使用和原理.md)
 
+## 开发技巧
+
+- [vue router4 的基本使用](./开发技巧/01_vue%20router4的基本使用.md)
+
 ## 深入原理
 
 - [ref 源码分析](./深入原理/01_ref%20源码分析.md)
