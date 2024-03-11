@@ -164,7 +164,7 @@ const route = useRoute();
 route.params.id;
 
 // query 方式
-等待测试;
+route.query.id;
 ```
 
 ## 路由守卫
