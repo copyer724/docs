@@ -101,3 +101,59 @@ export default class CatsController {
   }
 }
 ```
+
+_头部信息：_
+
+自定义的响应头，你可以使用`@Header()`装饰器，或则特定库`res.header()`
+
+```ts
+@Post()
+@Header('Cache-Control', 'none')
+create() {
+  return 'This action adds a new cat';
+}
+```
+
+_重定向_：
+
+可以使用`@Redirect()`装饰器，也可以使用特定库`res.redirect()`
+
+```ts
+@Controller("/cats")
+export default class CatsController {
+  @Get("create")
+  create(): { name: string } {
+    return { name: "thinker1" };
+  }
+
+  @Get()
+  @Redirect("http://localhost:3000/cats/create", 301) // 重定向到另外一个接口
+  findAll(@Req() res: Request, @Query() query: string): string[] {
+    console.log("res, query======>", res, query);
+    return ["cats"];
+  }
+}
+```
+
+_异步性：_
+
+每个异步函数都必须返回一个 Promise。这意味着你可以返回一个延迟的值，Nest 将能够自行解析它
+
+```ts
+@Get()
+async findAll(): Promise<any[]> {
+  return [];
+}
+```
+
+_请求负载_
+
+通过 `DTO`（数据传输对象）来定义了数据将如何通过网络发送的对象。推荐使用*类*来定义 DTO。（ES6 class 会保留实体，而 interface 在编译过程中，会被删除，nest 在运行时无法使用。在某些情景下，运行时会存现错误的可能，保留实体比较重要）。
+
+```ts
+export class CreateCatDto {
+  name: string;
+  age: number;
+  breed: string;
+}
+```
