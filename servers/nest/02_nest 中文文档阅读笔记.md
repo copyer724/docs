@@ -55,3 +55,49 @@ const app = await NestFactory.create<NestFastifyApplication>(AppModule);
 - 一个控制器存在*多*个路由（从上到下依次匹配）
 - *路由机制*控制哪个控制器接收哪些请求。
 - *路由路径*是*可选的控制器（controller）路径前缀*和*请求方法装饰器（get,post）中声明的任何路径字符串*的组合字符串
+
+_响应处理_：
+
+- 标准（推荐）：数组和对象转化为 JSON，针对基本数据类型，直接返回，不做处理。
+- 特定库：如 express。则需要手动注入 `@Res` 等装饰器
+
+_状态码_：
+
+处理 Post 请求之外，都是 200，Post 是 201，可以通过 `HttpCode` 来指定
+
+```ts
+import { Controller, Post, HttpCode } from "@nestjs/common";
+
+@Controller("/cats")
+export default class CatsController {
+  @Post()
+  @HttpCode(200)
+  findAll(): string[] {
+    return ["cats"];
+  }
+}
+```
+
+_请求对象_：
+
+处理程序通常需要访问客户端的请求详细信息。Nest 提供了对底层平台的请求对象（默认为 Express）的访问。
+
+- `@Req()` 或者 `@Request()` 来获取所有信息
+- `@Query()` `@Params()` `@Ip()` `@Body()` `@Next()` 来获取对应的部分信息。
+
+> 针对 Req 或者 Request 需要安装类型：`@types/express`
+
+```ts
+import { Controller, Get, Post, HttpCode, Req, Query } from "@nestjs/common";
+import { Request } from "express";
+
+@Controller("/cats")
+export default class CatsController {
+  @Get()
+  @HttpCode(200)
+  findAll(@Req() res: Request, @Query() query: string): string[] {
+    // res 请求对象  query：query 对象
+    return ["cats"];
+  }
+}
+```
