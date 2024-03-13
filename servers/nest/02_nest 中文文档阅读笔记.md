@@ -157,3 +157,87 @@ export class CreateCatDto {
   breed: string;
 }
 ```
+
+### 提供者（Services）
+
+作用：抽离 controller 层的复杂逻辑。通过使用 `@Injectable()` 装饰器来定义。
+
+由 `@Injectable()` 申明的类会被 nest IOC 容器进行管理。
+
+::: tip 注意点
+搞清楚什么时候使用 DTO，什么时候使用 interface。
+
+DTO 简单的来说，就是对用户传递过来的数据进行验证，所以说，针对 @Body()，就会使用 DTO；而针对返回值，类的参数等，都是使用 interface。
+:::
+
+_基本使用_
+
+:::code-group
+
+```ts [catService.ts]
+import { Injectable } from "@nestjs/common";
+
+export interface Cats {
+  name: string;
+}
+
+@Injectable()
+class CatsService {
+  private readonly cats: Cats[] = [];
+  add(cat: Cats) {
+    this.cats.push(cat);
+  }
+  findAll() {
+    return this.cats;
+  }
+}
+
+export default CatsService;
+```
+
+```ts [dto/cat.dto]
+export class CatDto {
+  name: string;
+}
+```
+
+```ts [catController.ts]
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import CatsService, { Cats } from "./cats.service";
+import { CatDto } from "./dto/cat.dto";
+
+@Controller("/cats")
+export default class CatsController {
+  constructor(private catService: CatsService) {}
+  @Post("create")
+  create(@Body() cat: CatDto) {
+    return this.catService.add(cat);
+  }
+
+  @Get("find")
+  async findAll(): Promise<Cats[]> {
+    return this.catService.findAll();
+  }
+}
+```
+
+```ts [catModule.ts]
+import { Module } from "@nestjs/common";
+import CatsController from "./cats.controller";
+import CatsService from "./cats.service";
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+```
+
+:::
+
+注意事项：
+
+- 什么时候使用 interface，什么时候使用 dto
+- dto 和 interface 如何定义
+- 创建了 service 之后，需要在 module 中声明一下，不然使用会报错
+- 在 controller 中使用 service, **注意初始化的特殊写法**：CatsService 是通过类构造函数注入的。请注意使用了 private 语法。这种简写允许我们在**同一位置立即声明和初始化 catsService 成员**。
