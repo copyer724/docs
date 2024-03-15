@@ -241,3 +241,96 @@ export class CatsModule {}
 - dto 和 interface 如何定义
 - 创建了 service 之后，需要在 module 中声明一下，不然使用会报错
 - 在 controller 中使用 service, **注意初始化的特殊写法**：CatsService 是通过类构造函数注入的。请注意使用了 private 语法。这种简写允许我们在**同一位置立即声明和初始化 catsService 成员**。
+
+### 模块（Module）
+
+模块是带有`@Module()`装饰器的类。`@Module()`装饰器提供元数据，供 nest 组织程序结构。
+
+**注意事项：**
+
+- 每个应用程序必须有一个模块，即**根模块**。应用程序图的构建起点。
+- `@Module()` 接受一个对象作为参数，其结构（provides, controllers, imports, exports）。前面两个， nest 内部会自动的进行实例化。imports 导入其他的模块，构建程序图
+
+_特性模块_：
+
+就类似于一个业务模块，包含业务的 controller 和 services。
+
+```ts
+// cat.module.ts
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+})
+export class CatsModule {}
+```
+
+_共享模块_：
+
+nest 中，模块是单例的，因此可以在其他模块中共享 Services 实例（业务模块提供者）。
+
+```ts
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsCervice],
+})
+export class CatsModule {}
+```
+
+_其他模块使用 Service_：
+
+::: code-group
+
+```ts [dogs.module.ts]
+import { Module } from "@nestjs/common";
+import DogsController from "./dogs.controller";
+import DogsService from "./dogs.service";
+import { CatsModule } from "src/cats/cats.module";
+
+@Module({
+  controllers: [DogsController],
+  providers: [DogsService],
+  imports: [CatsModule], // 使用其他模块的 Service，需要注册 modules
+})
+export class DogsModule {}
+```
+
+```ts [dogs.controller.ts]
+import { Controller, Get, Post, Body } from "@nestjs/common";
+import CatsService, { Cats } from "src/cats/cats.service";
+import { DogDto } from "./dto/dog.dto";
+
+@Controller("/dogs")
+export default class CatsController {
+  constructor(private catsService: CatsService) {}
+  @Post("create")
+  create(@Body() cat: DogDto) {
+    return this.catsService.add(cat);
+  }
+
+  @Get("find")
+  async findAll(): Promise<Cats[]> {
+    return this.catsService.findAll();
+  }
+}
+```
+
+:::
+
+- 使用其他 Service, 注意注册其他的整个 module
+- 使用其他 Service, 是同一个实例对象
+- controller 中使用多个 Service, 就只需要在类的构造函数多传递几个参数
+
+```ts
+@Controller("/dogs")
+export default class CatsController {
+  constructor(
+    private catsService: CatsService,
+    private dogsService: DogsService
+  ) {}
+}
+```
+
+::: warning 注意事项
+这种写法不一定正确，还在学习中
+:::
