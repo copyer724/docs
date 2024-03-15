@@ -251,6 +251,8 @@ export class CatsModule {}
 - 每个应用程序必须有一个模块，即**根模块**。应用程序图的构建起点。
 - `@Module()` 接受一个对象作为参数，其结构（provides, controllers, imports, exports）。前面两个， nest 内部会自动的进行实例化。imports 导入其他的模块，构建程序图
 
+<hr />
+
 _特性模块_：
 
 就类似于一个业务模块，包含业务的 controller 和 services。
@@ -264,6 +266,8 @@ _特性模块_：
 export class CatsModule {}
 ```
 
+<hr />
+
 _共享模块_：
 
 nest 中，模块是单例的，因此可以在其他模块中共享 Services 实例（业务模块提供者）。
@@ -272,10 +276,15 @@ nest 中，模块是单例的，因此可以在其他模块中共享 Services �
 @Module({
   controllers: [CatsController],
   providers: [CatsService],
-  exports: [CatsCervice],
+  exports: [CatsCervice], // 需要导出 Service，供其他模块使用
 })
 export class CatsModule {}
 ```
+
+- 其他模块要使用`CatsService`, 就需要导出 `CatsService`（使用 `exports` 进行导出）。
+- 其他模块导入整个模块`CatsModule`之后，就可以使用 `CatsService` 了，并且共享同一个实例对象（下面可以体现出来）。
+
+<hr />
 
 _其他模块使用 Service_：
 
@@ -317,8 +326,8 @@ export default class CatsController {
 
 :::
 
-- 使用其他 Service, 注意注册其他的整个 module
-- 使用其他 Service, 是同一个实例对象
+- 使用`其他 Service`, 需要导入`其他 module`
+- 使用`其他 Service`, 是共享同一个实例对象
 - controller 中使用多个 Service, 就只需要在类的构造函数多传递几个参数
 
 ```ts
@@ -334,3 +343,18 @@ export default class CatsController {
 ::: warning 注意事项
 这种写法不一定正确，还在学习中
 :::
+
+<hr />
+
+_模块的重新导出_：
+
+`DogsModule`模块导入 `CatsModule` 模块，又可以导出`CatsModule`模块。那么当其他模块导入 `DogsModule`时，同时可以使用 DogsModule 暴露出来的 Service，又可以使用 CatsModule 暴露出来的 Service。
+
+```ts
+//dogs.module.ts
+@Module({
+  imports: [CatsModule],
+  exports: [CatsModule],
+})
+export class DogsModule {}
+```
