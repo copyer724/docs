@@ -3,20 +3,20 @@
 layout: home
 
 hero:
-  name: "Thinker 技术空间站"
-  text: ""
-  tagline: 持续努力，持续学习，为站点纳入新鲜血液。
+  name: "六天半"
+  text: "Weekend Afternoon"
+  tagline: 学习六天半，休息小半天。
   image:
     src: /home.svg
   actions:
     - theme: brand
-      text: Welcome
+      text: 知识巩固
       link: basics/hc/
     - theme: brand
-      text: Think Life
+      text: 生活回顾
       link: /life/index
     - theme: alt
-      text: About me
+      text: 关于我
       link: /about
 
 features:

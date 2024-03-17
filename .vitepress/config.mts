@@ -7,7 +7,7 @@ export const baseUrl = "/docs/";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Thinker",
+  title: "六天半",
   base: baseUrl,
   description: "A VitePress Site",
   head: [
@@ -41,8 +41,8 @@ export default defineConfig({
       next: "下一篇",
     },
     footer: {
-      message: "欢迎来到 Thinker 技术空间站",
-      copyright: "Copyright by @Thinker 2024-01-01",
+      message: "欢迎来到《六天半-个人知识库》",
+      copyright: "Copyright by @六天半 2024-01-01",
     },
   },
 });

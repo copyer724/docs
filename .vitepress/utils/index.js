@@ -59,3 +59,5 @@ export function generateDirectory(pathname) {
   const items = intersections(files, WHITE_LIST);
   return getList(items, dirPath, pathname);
 }
+
+// export function getLigeList
