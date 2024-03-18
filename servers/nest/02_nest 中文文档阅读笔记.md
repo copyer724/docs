@@ -358,3 +358,93 @@ _模块的重新导出_：
 })
 export class DogsModule {}
 ```
+
+<hr />
+
+_全局模块_
+
+```ts
+// cats.module.ts
+@Global()
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService],
+})
+export class CatsModule {}
+```
+
+使用 `@Global` 来注册全局模块，那么在其他模块中，使用 `CatsService` 就不需要导入 `CatsModule` 了，直接使用即可。
+
+> 针对核心业务模块，不建议所有模块都使用全局的
+
+### 中间件（Middleware）
+
+- Middleware 是在路由处理程序之前调用的函数。
+- Nest 中间件默认情况下与 express 中间件等效。
+
+<hr />
+
+_编写中间件_
+
+1. 类的形式：需要带有`@Injectable()`装饰器的类，并且实现 `NestMiddleware` 接口。
+2. 函数形式：没有特别要求，跟 express 基本一致。
+
+:::code-group
+
+```ts [类形式中间件]
+// 打印中间件
+import { Injectable, NestMiddleware } from "@nestjs/common";
+import { Request, Response, NextFunction } from "express";
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware {
+  // use 方法
+  use(req: Request, res: Response, next: NextFunction) {
+    console.log("Request...");
+    next(); // 也是必须调用 nest, 才能继续向下走
+  }
+}
+```
+
+```ts [函数形式中间件]
+import { Request, Response, NextFunction } from "express";
+
+export function logger(req: Request, res: Response, next: NextFunction) {
+  console.log(`Request...`);
+  next();
+}
+```
+
+:::
+
+::: tip 使用建议
+当中间件不需要任何依赖时，可以考虑使用更简单的**函数式中间件**替代方案
+:::
+
+<hr />
+
+_应用中间件_
+
+上面编写中间件之后，就要应用在项目中
+
+```ts
+// cats.module.ts
+import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+
+// 中间件
+import { LoggerMiddleware } from "../middleware/logger";
+
+@Module({
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService],
+})
+// 需要实现 NestModule 类
+export class CatsModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    // 应用中间件给 ['cats'] 路径
+    consumer.apply(LoggerMiddleware).forRoutes("cats");
+  }
+}
+```
