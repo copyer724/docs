@@ -1,6 +1,12 @@
-一个在重庆工作的码农仔。
+# 关于我
 
-- 从 0 到 1 搭建脚手架 https://juejin.cn/post/7010673349571379231
-- copyer_utils
+一个在重庆工作的前端码农。
 
-- 先完成 monoropo
+## 近期学习目标和方向
+
+- `nestjs` 学习
+- 自主搭建脚手架（`@copyer/react-admin`, `@copyer/vue-admin`）
+- `@copyer-utils` 函数库的编写和发布 npm
+  - isNil
+  - omit
+  - pick

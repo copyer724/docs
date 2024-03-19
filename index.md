@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "六天半"
+  name: "Copyer 六天半"
   text: "Weekend Afternoon"
   tagline: 学习六天半，休息小半天。
   image:

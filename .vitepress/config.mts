@@ -7,9 +7,9 @@ export const baseUrl = "/docs/";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "六天半",
+  title: "Copyer 六天半",
   base: baseUrl,
-  description: "A VitePress Site",
+  description: "Copyer",
   head: [
     ["link", { rel: "icon", href: "/docs/logo.svg" }], //favicon图标设置
     [
@@ -41,8 +41,8 @@ export default defineConfig({
       next: "下一篇",
     },
     footer: {
-      message: "欢迎来到《六天半-个人知识库》",
-      copyright: "Copyright by @六天半 2024-01-01",
+      message: "欢迎来到 Copyer 六天半",
+      copyright: "Copyright by @Copyer 2024-01-01",
     },
   },
 });
