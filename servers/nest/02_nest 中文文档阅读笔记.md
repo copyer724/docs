@@ -426,11 +426,11 @@ export function logger(req: Request, res: Response, next: NextFunction) {
 
 _应用中间件_
 
-上面编写中间件之后，就要应用在项目中
+上面编写中间件之后，就要应用在项目中。但是在 `@Module` 中没有模块的位置，需要使用模块类（实现 `NestModule` 的类）的`configure()`来实现它。
 
 ```ts
 // cats.module.ts
-import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from "@nestjs/common";
 
 // 中间件
 import { LoggerMiddleware } from "../middleware/logger";
@@ -445,6 +445,11 @@ export class CatsModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     // 应用中间件给 ['cats'] 路径
     consumer.apply(LoggerMiddleware).forRoutes("cats");
+    // 针对路径的某个方法 [cats / get]
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: 'cats', method: RequestMethod.GET });
+  }
   }
 }
 ```
