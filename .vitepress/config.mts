@@ -7,7 +7,7 @@ export const baseUrl = "/docs/";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "Copyer 六天半",
+  title: "石膏银码农",
   base: baseUrl,
   description: "Copyer",
   head: [
@@ -41,7 +41,7 @@ export default defineConfig({
       next: "下一篇",
     },
     footer: {
-      message: "欢迎来到 Copyer 六天半",
+      message: "石膏银码农",
       copyright: "Copyright by @Copyer 2024-01-01",
     },
   },

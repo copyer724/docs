@@ -3,20 +3,20 @@
 layout: home
 
 hero:
-  name: "Copyer 六天半"
-  text: "Weekend Afternoon"
-  tagline: 学习六天半，休息小半天。
+  name: "石膏银码农"
+  text: "Copyer"
+  tagline: 当什么困难都没有了，机会也就随之没有了。
   image:
     src: /home.svg
   actions:
     - theme: brand
-      text: 知识巩固
+      text: 码农知识
       link: basics/hc/
     - theme: brand
-      text: 生活回顾
+      text: 码农生活
       link: /life/index
     - theme: alt
-      text: 关于我
+      text: 关于码农
       link: /about
 
 features:
