@@ -426,7 +426,7 @@ export function logger(req: Request, res: Response, next: NextFunction) {
 
 _应用中间件_
 
-上面编写中间件之后，就要应用在项目中。但是在 `@Module` 中没有模块的位置，需要使用模块类（实现 `NestModule` 的类）的`configure()`来实现它。
+上面编写中间件之后，就要应用在项目中。但是在 `@Module` 中没有中间件的位置，需要使用模块类（实现 `NestModule` 的类）的`configure()`方法来使用它。
 
 ```ts
 // cats.module.ts
@@ -453,3 +453,146 @@ export class CatsModule implements NestModule {
   }
 }
 ```
+
+- `MiddlewareConsumer`: 一个辅助类，它提供了几种内置方法来管理中间件。
+- `apply()` 方法可以接受单个中间件，或者多个参数来指定多个中间件。
+- `forRoutes()` 方法可以接受一个字符串、多个字符串、一个 RouteInfo 对象、一个控制器类，甚至是多个控制器类。
+
+```ts
+// 多个中间件（顺序执行）
+apply(LoggerMiddleware, logger); // 类或者函数
+```
+
+::: info forRoutes 尝试
+在大多数情况下，您可能只需要传递用**逗号**分隔的**控制器**列表。但是上面的几种情况，可能也会使用，有时间，可以尝试的使用多种情况。
+:::
+
+<hr />
+
+_排除路由_
+
+`exclude()` 该方法可以接受单个字符串、多个字符串或 RouteInfo 对象，用于标识要排除的路由。
+
+```ts
+consumer
+  .apply(LoggerMiddleware)
+  .exclude(
+    { path: "cats", method: RequestMethod.GET },
+    { path: "cats", method: RequestMethod.POST },
+    "cats/(.*)"
+  )
+  .forRoutes(CatsController);
+```
+
+LoggerMiddleware 将绑定到 CatsController 中定义的所有路由，除了传递给 exclude() 方法的三个路由。
+
+<hr />
+
+_全局中间件_
+
+```ts
+const app = await NestFactory.create(AppModule);
+app.use(logger);
+```
+
+### 异常过滤器
+
+Nest 框架内置了一个异常处理层，负责处理应用程序中的所有未处理异常。
+
+```json
+// 404
+{
+  "message": "Cannot GET /cats/find1", // [!code error]
+  "error": "Not Found",
+  "statusCode": 404 // [!code error]
+}
+
+// error(默认)
+{
+  "statusCode": 500, // [!code error]
+  "message": "Internal server error" // [!code error]
+}
+```
+
+不难看出，`statusCode` 和 `message` 都是存在的。
+
+- statusCode: http 状态码
+- message: http 错误简单描述
+
+<hr />
+
+_标准异常_
+
+Nest 提供了一个内置的 `HttpException` 类，可以从@nestjs/common 包中引入。最佳实践是在发生某些错误条件时发送标准的 HTTP 响应对象。
+·
+::: code-group
+
+```ts{5} [抛出异常]
+import { HttpException, HttpStatus } from "@nestjs/common";
+class Controller {
+  @Get("/error")
+  async test() {
+    return new HttpException("Forbidden", HttpStatus.FORBIDDEN);
+  }
+}
+```
+
+```json [现象]
+{
+  "response": "Forbidden",
+  "status": 403,
+  "message": "Forbidden",
+  "name": "HttpException"
+}
+```
+
+:::
+
+::: tip
+
+nest 中 HttpStatus 中的状态码: [nest http 状态码](./07_nest%20http状态码.md)
+:::
+
+`HttpException` 接受两个参数：
+
+- 参数一：`response` JSON 响应体
+  - 如果想修改 message 的提示语，只需要传递一个**字符串**
+  - 如果想自定义返回格式，参数就传递一个**对象**，其格式就按照自定义的返回
+- 参数二：`status` HTTP 状态码
+- 参数三（可选）：options
+
+```ts {3,4,5}
+new HttpException(
+  {
+    // 自定义格式
+    status: HttpStatus.FORBIDDEN,
+    error: "This is a custom message",
+  },
+  HttpStatus.FORBIDDEN
+);
+```
+
+其返回自定义格式：
+
+```json
+{
+  "status": 403,
+  "error": "This is a custom message"
+}
+```
+
+<hr />
+
+_自定义异常_
+
+在大多数情况下，不需要自定义异常，因为 nest 内部已经内置了很多的异常类。但是如果真的需要自定义的时候，你可以这样写:
+
+```ts
+class CustomException extends HttpException {
+  constructor() {
+    super("Forbidden", HttpStatus.FORBIDDEN);
+  }
+}
+```
+
+必须继承于 HttpException，这样 Nest 将识别您的异常，并自动处理错误响应。
