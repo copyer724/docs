@@ -100,8 +100,8 @@
 
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #FF5722 50%,
-    #F57C00 50%
+    #f2e6e2,
+    #f1c69b
   );
   --vp-home-hero-image-filter: blur(44px);
 }

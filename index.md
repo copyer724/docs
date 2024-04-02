@@ -26,7 +26,7 @@ features:
   - title: 阅读风格
     icon: 🌴
     details: 阅读之前，先思考篇前疑问，再进行阅读，效果💯💯。
-  - title: 差异性
+  - title: 终极目标
     icon: 🔥
-    details: 差异性，找工作的独家秘籍。vue、react、小程序人人都会，如果找到心仪的工作，就拿出你与他人的不同。
+    details: 向人民币看齐🌈🌈🌈。
 ---
