@@ -14,6 +14,13 @@ const _2024 = [
     url: `${baseUrl}life/面试准备.html`,
     children: [],
   },
+  {
+    class: "item",
+    title: "她第一次在我面前哭了",
+    date: "04-06",
+    url: `${baseUrl}life/她第一次在我面前哭了.html`,
+    children: [],
+  },
 ];
 
 export const timelineList = [
