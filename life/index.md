@@ -1,7 +1,6 @@
 ---
-aside: false
+layout: page
+footer: false
 ---
-
-# 生活感悟
 
 <copyer-private />

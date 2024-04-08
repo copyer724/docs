@@ -1,11 +1,10 @@
 <script setup>
 import TimeLine from "./timeline.vue";
+import Login from "./login.vue";
 </script>
 
 <template>
-  <div class="home">
-    <time-line />
-  </div>
+  <login />
 </template>
 
 <style scoped></style>

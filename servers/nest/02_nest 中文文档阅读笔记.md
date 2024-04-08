@@ -596,3 +596,88 @@ class CustomException extends HttpException {
 ```
 
 必须继承于 HttpException，这样 Nest 将识别您的异常，并自动处理错误响应。
+
+### 管道
+
+_管道的两个作用_：
+
+1. 转化参数类型
+2. 判断参数有效性（例如类型不正确，抛出异常）
+
+_发生时机_：
+
+在控制器（Controller）中的参数验证，然后进行验证和转化之后，之后就会拿去转化之后的参数进行程序后续逻辑。
+
+_nest 默认内置的管道有_：
+
+- ValidationPipe
+- ParseIntPipe
+- ParseFloatPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- ParseEnumPipe
+- DefaultValuePipe
+- ParseFilePipe
+
+`ParseIntPipe` 类型演示：
+
+::: code-group
+
+```ts [代码]
+import { Controller, Get, Param, ParseIntPipe } from "@nestjs/common";
+
+@Controller("/dogs")
+export default class CatsController {
+  constructor(private dogsService: DogsService) {}
+
+  @Get(":id")
+  // 验证 id 是否为数字
+  async findInfoById(@Param("id", ParseIntPipe) id: number) {
+    console.log(id);
+    return 123;
+  }
+}
+```
+
+```json [错误实例]
+// dogs/abc
+{
+  "message": "Validation failed (numeric string is expected)",
+  "error": "Bad Request",
+  "statusCode": 400
+}
+```
+
+```bash [成功实例]
+# dogs/12
+匹配成功，拿取到返回数据;
+```
+
+:::
+
+_管道语法_：
+
+- 可以传递类，让 nest 内部进行实例
+- 也可以传递就地实例，传递选项来自定义内置管道的行为
+
+```ts
+class A {
+  @Get(":id")
+  async findInfoById(
+    @Param(
+      "id",
+      // 自定义返回状态，传递的一个实例
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.METHOD_NOT_ALLOWED })
+    )
+    id: number
+  ) {
+    console.log(id);
+    return 123;
+  }
+}
+```
+
+_自定义管道_：
+
+- 管道也是通过 `@Injectable()` 来注解的类。
