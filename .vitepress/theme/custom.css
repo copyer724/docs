@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --vp-c-brand-1: #FF5722;
   --vp-c-brand-2: #F57C00;

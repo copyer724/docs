@@ -34,7 +34,7 @@ export default defineConfig({
     outline: { level: "deep" },
     outlineTitle: "本篇目录",
     socialLinks: [
-      { icon: "github", link: "https://github.com/vuejs/vitepress" },
+      // { icon: "github", link: "https://github.com/vuejs/vitepress" },
     ],
     docFooter: {
       prev: "上一篇",

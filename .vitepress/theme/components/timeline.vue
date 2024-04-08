@@ -27,7 +27,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { timelineList as configList } from "../config/timeline.mjs";
+import { timelineList as configList } from "../../config/timeline.mjs";
 const timelineList = ref(configList);
 const btnPath = (url) => {
   window.location.href = url;
