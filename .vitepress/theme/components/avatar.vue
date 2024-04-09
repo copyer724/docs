@@ -11,7 +11,7 @@ import { ref } from "vue";
 import { baseUrl } from "../../config/config";
 import Ava from "./avater.svg";
 
-const isLogin = ref(sessionStorage.getItem("token"));
+const isLogin = ref(!!sessionStorage.getItem("token"));
 
 const btn = () => {
   if (location.pathname === `${baseUrl}login`) return;

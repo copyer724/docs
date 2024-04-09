@@ -30,6 +30,9 @@ const submit = () => {
   setTimeout(() => {
     window.history.go(-1);
   }, 500);
+  setTimeout(() => {
+    location.reload();
+  }, 600);
 };
 
 const keyDown = (e) => {
