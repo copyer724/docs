@@ -1,5 +1,7 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted, onUnmounted } from "vue";
+import { ElMessage } from "element-plus";
+import { successTxt, generateToken } from "../utils/index";
 const notes = {
   error: "您输入错了~~~",
   empty: "别偷懒~~~",
@@ -15,8 +17,34 @@ const submit = () => {
     errotTxt.value = "empty";
     return;
   }
-  console.log("userInfo======>", userInfo);
+  if (generateToken(userInfo) !== successTxt) {
+    errotTxt.value = "error";
+    return;
+  }
+  sessionStorage.setItem("token", generateToken(userInfo));
+  ElMessage({
+    message: "登录成功！",
+    type: "success",
+    plain: true,
+  });
+  setTimeout(() => {
+    window.history.go(-1);
+  }, 500);
 };
+
+const keyDown = (e) => {
+  if (e.keyCode == 13 || e.keyCode == 100) {
+    submit();
+  }
+};
+onMounted(() => {
+  //绑定监听事件
+  window.addEventListener("keydown", keyDown);
+});
+onUnmounted(() => {
+  //销毁事件
+  window.removeEventListener("keydown", keyDown, false);
+});
 </script>
 
 <template>
@@ -50,7 +78,14 @@ const submit = () => {
         <div class="cut"></div>
         <label class="iLabel" for="password">密码</label>
       </div>
-      <button class="submit" type="text" @click="submit">登录</button>
+      <button
+        class="submit"
+        type="text"
+        @click="submit"
+        @keydown.enter="keyDown"
+      >
+        登录
+      </button>
 
       <div v-if="notes[errotTxt]" class="mt-6 text-center text-[#f00]">
         {{ notes[errotTxt] }}

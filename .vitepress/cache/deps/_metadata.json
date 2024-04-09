@@ -2,34 +2,52 @@
   "hash": "98368a6a",
   "configHash": "662e4ad8",
   "lockfileHash": "11295926",
-  "browserHash": "21d6cc29",
+  "browserHash": "71b240d1",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "8509a6b5",
+      "fileHash": "8e4cfed7",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "05b8d156",
+      "fileHash": "a303329a",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.1_vue@3.4.5/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "03530ed5",
+      "fileHash": "a59aaa80",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../node_modules/.pnpm/element-plus@2.6.3_vue@3.4.5/node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "c343f194",
+      "fileHash": "586739af",
+      "needsInterop": false
+    },
+    "vitepress-markdown-timeline": {
+      "src": "../../../node_modules/.pnpm/vitepress-markdown-timeline@1.2.1/node_modules/vitepress-markdown-timeline/dist/es/index.es.js",
+      "file": "vitepress-markdown-timeline.js",
+      "fileHash": "0d8554e5",
+      "needsInterop": false
+    },
+    "@element-plus/icons-vue": {
+      "src": "../../../node_modules/.pnpm/@element-plus+icons-vue@2.3.1_vue@3.4.5/node_modules/@element-plus/icons-vue/dist/index.js",
+      "file": "@element-plus_icons-vue.js",
+      "fileHash": "7d3b78a9",
       "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-5KRAKBUE": {
+      "file": "chunk-5KRAKBUE.js"
+    },
+    "chunk-HN4B3KY2": {
+      "file": "chunk-HN4B3KY2.js"
+    },
     "chunk-EA4DXTPT": {
       "file": "chunk-EA4DXTPT.js"
     },

@@ -7,6 +7,7 @@ import TimeLine from "./components/timeline.vue";
 import CopyerPrivate from "./components/copyer_private.vue";
 // import NewDefaultTheme from "./Layout.vue";
 import Avatar from "./components/avatar.vue";
+import Login from "./components/login.vue";
 
 import "element-plus/dist/index.css";
 import "./style.css";
@@ -24,6 +25,7 @@ export default {
   enhanceApp({ app, router, siteData }) {
     app.component("time-line", TimeLine);
     app.component("copyer-private", CopyerPrivate);
+    app.component("login", Login);
     // ...
   },
 } satisfies Theme;

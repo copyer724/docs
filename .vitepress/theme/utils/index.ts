@@ -3,7 +3,7 @@ let user = {
   password: "copyer123",
 };
 
-let successTxt = `${user.username}${user.password}`;
+export const successTxt = btoa(`${user.username}${user.password}`);
 
 /**
  * 验证用户名和密码是否正确
@@ -19,5 +19,5 @@ export function validate(info: { username: string; password: string }) {
  * @returns token
  */
 export function generateToken(info: { username: string; password: string }) {
-  return `${info.username}${info.password}`;
+  return btoa(`${info.username}${info.password}`);
 }

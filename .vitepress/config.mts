@@ -2,8 +2,7 @@ import { defineConfig } from "vitepress";
 import { nav } from "./config/nav.mts";
 import { sidebar } from "./config/sidebar.mjs";
 import timeline from "vitepress-markdown-timeline";
-
-export const baseUrl = "/docs/";
+import { baseUrl } from "./config/config";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
