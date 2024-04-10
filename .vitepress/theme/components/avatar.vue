@@ -20,7 +20,7 @@ const btn = () => {
 };
 
 const handleEventBus = (value) => {
-  // console.log("value======>", value);
+  console.log("value======>", value);
   // isLogin.value = value === "true";
 };
 
