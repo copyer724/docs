@@ -18,11 +18,8 @@ const btn = () => {
   location.href = `${baseUrl}login`;
 };
 
-eventBus.on("changeLoginStatus", (value) => {
-  isLogin.value = Boolean(value);
-});
-
 const handleEventBus = (value) => {
+  console.log("value======>", value);
   isLogin.value = Boolean(value);
 };
 
