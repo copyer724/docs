@@ -23,7 +23,6 @@ const handleEventBus = (value) => {
 };
 
 onMounted(() => {
-  location.reload();
   eventBus.on("changeLoginStatus", (value) => {
     handleEventBus(value);
   });
