@@ -2,7 +2,6 @@
 import { ref } from "vue";
 import { ElEmpty, ElButton } from "element-plus";
 import TimeLine from "./timeline.vue";
-import NotLogin from "./notLogin.svg";
 import { baseUrl } from "../../config/config";
 const isLogin = ref(sessionStorage.getItem("token"));
 
@@ -17,11 +16,10 @@ const btn = () => {
     <time-line />
   </template>
   <template v-else>
-    <el-empty
-      :image="NotLogin"
-      :image-size="250"
-      description="未登录，请先登录"
-    >
+    <el-empty :image-size="250" description="未登录，请先登录">
+      <template #image>
+        <img src="/403.svg" alt="403" />
+      </template>
       <el-button type="primary" class="btn" @click="btn" size="large"
         >前往登录</el-button
       >

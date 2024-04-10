@@ -9,7 +9,7 @@ import {
 import { ArrowDown } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { baseUrl } from "../../config/config";
-import Ava from "./avater.svg";
+import eventBus from "../utils/mitt";
 
 const isLogin = ref(!!sessionStorage.getItem("token"));
 
@@ -17,6 +17,10 @@ const btn = () => {
   if (location.pathname === `${baseUrl}login`) return;
   location.href = `${baseUrl}login`;
 };
+
+eventBus.on("changeLoginStatus", (value) => {
+  isLogin.value = Boolean(value);
+});
 
 const select = (e) => {
   switch (e) {
@@ -26,6 +30,9 @@ const select = (e) => {
     case "logout":
       sessionStorage.removeItem("token");
       isLogin.value = false;
+      if (location.pathname.includes(`${baseUrl}life`)) {
+        location.href = baseUrl;
+      }
       break;
   }
 };
@@ -39,7 +46,7 @@ const select = (e) => {
     <template v-else>
       <el-dropdown placement="bottom-start" @command="select">
         <div class="flex items-center">
-          <img :src="Ava" class="h-10 w-10" />
+          <img src="/avatar.svg" class="h-10 w-10" />
           <el-icon>
             <arrow-down />
           </el-icon>

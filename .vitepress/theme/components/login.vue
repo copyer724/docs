@@ -2,6 +2,7 @@
 import { ref, reactive, onMounted, onUnmounted } from "vue";
 import { ElMessage } from "element-plus";
 import { successTxt, generateToken } from "../utils/index";
+import eventBus from "../utils/mitt";
 const notes = {
   error: "您输入错了~~~",
   empty: "别偷懒~~~",
@@ -27,12 +28,10 @@ const submit = () => {
     type: "success",
     plain: true,
   });
+  eventBus.emit("changeLoginStatus", "true");
   setTimeout(() => {
     window.history.go(-1);
   }, 500);
-  setTimeout(() => {
-    location.reload();
-  }, 600);
 };
 
 const keyDown = (e) => {
