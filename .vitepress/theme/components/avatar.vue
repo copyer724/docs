@@ -20,11 +20,10 @@ const btn = () => {
 
 const handleEventBus = (value) => {
   isLogin.value = value === "true";
-  location.reload();
 };
 
 onMounted(() => {
-  console.log("======>onMounted");
+  location.reload();
   eventBus.on("changeLoginStatus", (value) => {
     handleEventBus(value);
   });
