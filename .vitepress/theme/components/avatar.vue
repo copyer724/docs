@@ -7,7 +7,7 @@ import {
   ElIcon,
 } from "element-plus";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { baseUrl } from "../../config/config";
 import eventBus from "../utils/mitt";
 
@@ -21,6 +21,10 @@ const btn = () => {
 const handleEventBus = (value) => {
   isLogin.value = value === "true";
 };
+
+watch(isLogin, () => {
+  location.reload();
+});
 
 onMounted(() => {
   eventBus.on("changeLoginStatus", (value) => {
