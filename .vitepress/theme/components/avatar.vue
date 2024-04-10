@@ -7,7 +7,7 @@ import {
   ElIcon,
 } from "element-plus";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { baseUrl } from "../../config/config";
 import eventBus from "../utils/mitt";
 
@@ -20,6 +20,16 @@ const btn = () => {
 
 eventBus.on("changeLoginStatus", (value) => {
   isLogin.value = Boolean(value);
+});
+
+const handleEventBus = (value) => {
+  isLogin.value = Boolean(value);
+};
+
+onMounted(() => {
+  eventBus.on("changeLoginStatus", (value) => {
+    handleEventBus(value);
+  });
 });
 
 const select = (e) => {
