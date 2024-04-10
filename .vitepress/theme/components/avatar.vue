@@ -12,6 +12,7 @@ import { baseUrl } from "../../config/config";
 import eventBus from "../utils/mitt";
 
 const isLogin = ref(!!sessionStorage.getItem("token"));
+console.log("isLogin======>重新执行", isLogin);
 
 const btn = () => {
   if (location.pathname === `${baseUrl}login`) return;
@@ -20,7 +21,7 @@ const btn = () => {
 
 const handleEventBus = (value) => {
   console.log("value======>", value);
-  isLogin.value = Boolean(value);
+  isLogin.value = value === "true";
 };
 
 onMounted(() => {
