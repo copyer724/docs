@@ -29,9 +29,9 @@ const submit = () => {
     plain: true,
   });
   eventBus.emit("changeLoginStatus", "true");
-  window.history.go(-1);
-
-  // setTimeout(() => {}, 500);
+  setTimeout(() => {
+    window.history.go(-1);
+  }, 500);
 };
 
 const keyDown = (e) => {
