@@ -26,6 +26,7 @@ const handleEventBus = (value) => {
 };
 
 onMounted(() => {
+  console.log("======>onMounted");
   eventBus.on("changeLoginStatus", (value) => {
     handleEventBus(value);
   });
