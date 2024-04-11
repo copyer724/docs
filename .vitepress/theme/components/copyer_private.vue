@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { ElEmpty, ElButton } from "element-plus";
 import TimeLine from "./timeline.vue";
 import { baseUrl } from "../../config/config";
@@ -9,6 +9,13 @@ const btn = () => {
   if (location.pathname === `${baseUrl}login`) return;
   location.href = `${baseUrl}login`;
 };
+onMounted(() => {
+  window.addEventListener("pageshow", updateLoginStatus);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("pageshow", updateLoginStatus);
+});
 </script>
 
 <template>

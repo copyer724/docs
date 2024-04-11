@@ -9,7 +9,6 @@ import {
 import { ArrowDown } from "@element-plus/icons-vue";
 import { ref, onMounted, onUnmounted } from "vue";
 import { baseUrl } from "../../config/config";
-import eventBus from "../utils/mitt";
 
 const isLogin = ref(!!sessionStorage.getItem("token"));
 
@@ -18,21 +17,11 @@ const btn = () => {
   location.href = `${baseUrl}login`;
 };
 
-console.log("isLogin.value======>", isLogin.value);
-
-const handleEventBus = (value) => {
-  isLogin.value = value === "true";
-  console.log("isLogin.value1111======>", isLogin.value);
-};
-
 const updateLoginStatus = () => {
   isLogin.value = !!sessionStorage.getItem("token");
 };
 
 onMounted(() => {
-  // eventBus.on("changeLoginStatus", (value) => {
-  //   handleEventBus(value);
-  // });
   window.addEventListener("pageshow", updateLoginStatus);
 });
 
