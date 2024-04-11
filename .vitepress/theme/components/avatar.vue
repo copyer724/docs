@@ -7,7 +7,7 @@ import {
   ElIcon,
 } from "element-plus";
 import { ArrowDown } from "@element-plus/icons-vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { baseUrl } from "../../config/config";
 import eventBus from "../utils/mitt";
 
@@ -25,11 +25,19 @@ const handleEventBus = (value) => {
   console.log("isLogin.value1111======>", isLogin.value);
 };
 
+const updateLoginStatus = () => {
+  isLogin.value = !!sessionStorage.getItem("token");
+};
+
 onMounted(() => {
-  console.log("======>onMounted");
   eventBus.on("changeLoginStatus", (value) => {
     handleEventBus(value);
   });
+  window.addEventListener("pageshow", updateLoginStatus);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("pageshow", updateLoginStatus);
 });
 
 const select = (e) => {
