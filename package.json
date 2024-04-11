@@ -21,8 +21,5 @@
     "vitepress-markdown-timeline": "^1.2.1",
     "vitepress-plugin-auto-sidebar": "^1.1.0",
     "vue": "^3.4.5"
-  },
-  "dependencies": {
-    "mitt": "^3.0.1"
   }
 }
