@@ -30,9 +30,9 @@ const updateLoginStatus = () => {
 };
 
 onMounted(() => {
-  eventBus.on("changeLoginStatus", (value) => {
-    handleEventBus(value);
-  });
+  // eventBus.on("changeLoginStatus", (value) => {
+  //   handleEventBus(value);
+  // });
   window.addEventListener("pageshow", updateLoginStatus);
 });
 
