@@ -1,7 +1,5 @@
 // vite-plugin-vitepress-auto-sidebar 这个插件自动导航，生成的太多，不是我想要的
 
-import { getSidebar } from "vitepress-plugin-auto-sidebar";
-
 import { Sidebar } from "./d";
 import { generateDirectory } from "../utils";
 
@@ -35,6 +33,10 @@ const sides = [
   {
     text: "theory",
     children: ["theory", "action", "tool"],
+  },
+  {
+    text: "interview",
+    children: ["handRealize"],
   },
 ];
 

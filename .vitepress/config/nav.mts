@@ -71,6 +71,10 @@ export const nav: NavItem[] = [
     ],
   },
   {
+    text: "面试系列",
+    items: [{ text: "手写系列", link: "/interview/handRealize/" }],
+  },
+  {
     text: "个人博客",
     link: "/blogs/",
   },

@@ -1,56 +1,41 @@
 {
-  "hash": "d64bbfd0",
+  "hash": "98368a6a",
   "configHash": "662e4ad8",
-  "lockfileHash": "9748a752",
-  "browserHash": "7d6cb8a2",
+  "lockfileHash": "11295926",
+  "browserHash": "98704e2f",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "3e164b8d",
+      "fileHash": "ef3bf7e9",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "a488d4e3",
+      "fileHash": "60849ff7",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.1_vue@3.4.5/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "4f502804",
+      "fileHash": "eb938f5a",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../node_modules/.pnpm/element-plus@2.6.3_vue@3.4.5/node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "507cbd6e",
-      "needsInterop": false
-    },
-    "vitepress-markdown-timeline": {
-      "src": "../../../node_modules/.pnpm/vitepress-markdown-timeline@1.2.1/node_modules/vitepress-markdown-timeline/dist/es/index.es.js",
-      "file": "vitepress-markdown-timeline.js",
-      "fileHash": "c204bbe2",
+      "fileHash": "6c988718",
       "needsInterop": false
     },
     "@element-plus/icons-vue": {
       "src": "../../../node_modules/.pnpm/@element-plus+icons-vue@2.3.1_vue@3.4.5/node_modules/@element-plus/icons-vue/dist/index.js",
       "file": "@element-plus_icons-vue.js",
-      "fileHash": "a2511d52",
-      "needsInterop": false
-    },
-    "mitt": {
-      "src": "../../../node_modules/.pnpm/mitt@3.0.1/node_modules/mitt/dist/mitt.mjs",
-      "file": "mitt.js",
-      "fileHash": "a86022f6",
+      "fileHash": "634a9439",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-HN4B3KY2": {
-      "file": "chunk-HN4B3KY2.js"
-    },
     "chunk-EA4DXTPT": {
       "file": "chunk-EA4DXTPT.js"
     },
