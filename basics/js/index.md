@@ -8,6 +8,7 @@
 - [dom 和 bom 专区](./JavaScript%20开发小知识/04_dom和bom专区.md)
 - [文件上传知识](./JavaScript%20开发小知识/05_文件上传知识.md)
 - [Object 细节知识](./JavaScript%20开发小知识/06_Object%20细节知识.md)
+- [async await 用法理解](./JavaScript%20开发小知识/07_async%20await%20用法理解.md)
 
 ### JavaScript 高级
 
