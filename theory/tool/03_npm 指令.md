@@ -4,7 +4,8 @@
 
 ```bash
 npm config get registry # 查看源
-npm config set registry https://registry.npmjs.org # 设置源
+npm config set registry https://registry.npmjs.org # 设置 npm 官方源
+npm config set registry https://registry.npmmirror.com/ # 设置 淘宝源
 ```
 
 package.json version 变动

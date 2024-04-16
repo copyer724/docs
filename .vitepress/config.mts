@@ -40,9 +40,6 @@ export default defineConfig({
         link: "https://juejin.cn/user/2823965976323016/posts",
       },
     ],
-    search: {
-      provider: "local",
-    },
     docFooter: {
       prev: "上一篇",
       next: "下一篇",

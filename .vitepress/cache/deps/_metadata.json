@@ -1,50 +1,29 @@
 {
-  "hash": "f947da62",
-  "configHash": "2b2f2cdc",
+  "hash": "cc9f733a",
+  "configHash": "cc53ae22",
   "lockfileHash": "4328616d",
-  "browserHash": "2e9e3959",
+  "browserHash": "c1abdc60",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "ec0268ac",
+      "fileHash": "b8c08ef6",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.27_vue@3.4.22/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "1757eaf7",
+      "fileHash": "06e5b4cc",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.22/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "bb6ccf8f",
-      "needsInterop": false
-    },
-    "vitepress > @vueuse/integrations/useFocusTrap": {
-      "src": "../../../node_modules/.pnpm/@vueuse+integrations@10.9.0_focus-trap@7.5.4_vue@3.4.22/node_modules/@vueuse/integrations/useFocusTrap.mjs",
-      "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "6e69f276",
-      "needsInterop": false
-    },
-    "vitepress > mark.js/src/vanilla.js": {
-      "src": "../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
-      "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "1aafc426",
-      "needsInterop": false
-    },
-    "vitepress > minisearch": {
-      "src": "../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
-      "file": "vitepress___minisearch.js",
-      "fileHash": "bafdfb07",
+      "fileHash": "1462e627",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-EX6A6OI4": {
-      "file": "chunk-EX6A6OI4.js"
-    },
     "chunk-KT7DAYJA": {
       "file": "chunk-KT7DAYJA.js"
     }

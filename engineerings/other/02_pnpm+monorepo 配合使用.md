@@ -34,7 +34,10 @@ ackages:
   }
 }
 
-// 因为最外层已经被设置为私有包了，那么如果针对子包发版的话，也需要暴露出去，也就上面这个配置，允许发版
+/**
+ * 因为最外层已经被设置为私有包了，那么如果针对子包发版的话，
+ * 也需要暴露出去，也就上面这个配置，允许发版
+ */
 ```
 
 ## 安装依赖
@@ -72,8 +75,45 @@ pnpm -F @copyer/taro add @copyer/utils
 
 [workspace: 依赖解释](https://www.pnpm.cn/workspaces#publishing-workspace-packages)
 
-## 发布视频
+## 发布包
 
-等待完善
+npm 要设置为 `npm 官方源`。
+
+_安装发布工具并初始化_
+
+```bash
+pnpm install @changesets/cli -w --save-dev
+pnpm changeset init # 生成 .changeset 文件
+```
+
+::: danger 注意
+`.changeset` 文件一定要添加到 git 之中，不然执行 `pnpm changeset` 命令时，会报错。
+:::
+
+_发布测试版本_
+
+通过执行 `pnpm changeset pre enter <tag>` 命令进入先进入 pre 模式。
+
+```bash
+# 发布 alpha 版本, 内部测试版本，存在很多bug，一般用于测试人员
+pnpm changeset pre enter alpha
+# 发布 beta 版本，也是测试版本，该版本会一直加新功能
+pnpm changeset pre enter beta
+# 发布 rc 版本，不会加入新功能，进入稳定版本，不会有新功能增加，主要用于排错。
+pnpm changeset pre enter rc
+
+pnpm changeset pre exit          # 退出 pre 模式
+```
+
+_发布正式版本_
+
+```bash
+pnpm changeset             # 选择版本（主次）, 生成一个临时文件
+pnpm changeset version     # 根据临时文件，改变对应包中 package.json 中的 version
+pnpm changeset publish     # 发布正式版本
+
+```
+
+## 视频教学
 
 https://www.bilibili.com/video/BV1Aj411h7F2/?vd_source=73b012c3730a25fea48281b3af665c0e
