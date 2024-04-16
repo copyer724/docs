@@ -597,7 +597,9 @@ class CustomException extends HttpException {
 
 必须继承于 HttpException，这样 Nest 将识别您的异常，并自动处理错误响应。
 
-### 管道
+### 管道(`Parse*`)
+
+`管道`是具有 `@Injectable()` 装饰器的类。管道应实现 `PipeTransform` 接口。
 
 _管道的两个作用_：
 
@@ -681,3 +683,99 @@ class A {
 _自定义管道_：
 
 - 管道也是通过 `@Injectable()` 来注解的类。
+- 每个管道都必须实现 `transform()` 方法来履行 `PipeTransform` 接口契约。
+- `PipeTransform<T, R>` 是一个通用接口，任何管道都必须实现。泛型接口用 T 表示输入 value 的类型，用 R 表示 transform() 方法的返回类型
+
+::: code-group
+
+```ts [自定义管道]
+import { PipeTransform, ArgumentMetadata } from "@nestjs/common";
+@Injectable()
+class ValidationPipe implements PipeTransform<string, number> {
+  transform(value: string, metadata: ArgumentMetadata): number {
+    console.log(value, metadata);
+    /**
+     * value: 1231
+     * metadata: {type: 'param', data: 'id', metatype: XXX }
+     */
+    return +value;
+  }
+}
+```
+
+```ts{6} [Controller 使用]
+@Controller("/dogs")
+export default class CatsController {
+  constructor(private dogsService: DogsService) {
+
+  @Get(':id')
+  async findInfoById(@Param('id', ValidationPipe) id: number) {
+    console.log(id);
+    return 123;
+  }
+  }
+}
+```
+
+:::
+
+测试： '/dogs/1231', 会出现以上的结构。
+
+_joi 验证 dto_
+
+::: code-group
+
+```bash [安装]
+pnpm install joi
+```
+
+```ts{7,11,14} [自定义 joi 验证管道]
+import {
+  PipeTransform,
+  Injectable,
+  ArgumentMetadata,
+  BadRequestException,
+} from "@nestjs/common";
+import { ObjectSchema } from "joi";
+
+@Injectable()
+export class JoiValidationPipe implements PipeTransform {
+  constructor(private schema: ObjectSchema) {}
+
+  transform(value: any, metadata: ArgumentMetadata) {
+    const { error } = this.schema.validate(value); // 校验
+    if (error) {
+      throw new BadRequestException("Validation failed");
+    }
+    return value;
+  }
+}
+```
+
+```ts{1-5} [定义 dto 和 schame]
+const createCatSchema = Joi.object({
+  name: Joi.string().required(),
+  age: Joi.number().required(),
+  breed: Joi.string().required(),
+});
+
+export interface CreateCatDto {
+  name: string;
+  age: number;
+  breed: string;
+}
+```
+
+```ts{4} [校验 dto]
+import { UsePipes } from '@nestjs/core';
+
+@Post()
+@UsePipes(new JoiValidationPipe(createCatSchema)) // 校验
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+```
+
+:::
+
+这样当 dto 中存在类型不匹配，就会抛出异常。
