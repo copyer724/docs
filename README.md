@@ -1,2 +1,3 @@
 # docs
-study docs
+
+Docs of Copyer

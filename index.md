@@ -13,8 +13,8 @@ hero:
       text: 码农知识
       link: basics/hc/
     - theme: alt
-      text: 码农生活
-      link: /life/index
+      text: 关于码农
+      link: /about
 
 features:
   - title: 座右铭
