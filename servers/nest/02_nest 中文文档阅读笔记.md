@@ -779,3 +779,70 @@ async create(@Body() createCatDto: CreateCatDto) {
 :::
 
 这样当 dto 中存在类型不匹配，就会抛出异常。
+
+_class-validator 验证 dto_
+
+这是比较常用的方法。
+
+::: code-group
+
+```bash [安装]
+# 安装（两个库的作者是一个）
+npm i --save class-validator class-transformer
+```
+
+```ts{4,7} [定义 dto]
+import { IsString, IsInt } from "class-validator";
+
+export class DogDto {
+  @IsString()
+  name: string;
+
+  @IsInt()
+  age: number;
+}
+
+// 注意装饰器是大写的 Is, 而不是小写的 is，犯错记录
+```
+
+```ts [自定义 pipe]
+@Injectable()
+class ValidationDtoPipe implements PipeTransform {
+  async transform(value: any, { metatype }: ArgumentMetadata): Promise<any> {
+    // metatype 需要了解清楚??? // [!code error]
+    if (!metatype || !this.validate(metatype)) {
+      return value;
+    }
+    const obj = plainToInstance(metatype, value);
+    const errors = await validate(obj);
+    if (errors.length > 0) {
+      // 返回错误信息也需要优化  // [!code error]
+      throw new BadRequestException("Validation failed");
+    }
+    return value;
+  }
+
+  /**
+   * 当正在处理的参数是原生 JavaScript 类型时，它负责绕过验证步骤;
+   * 因为它们不能附加验证装饰器
+   * @param metatype: 验证数据源
+   * @private
+   */
+  private validate(metatype: Function): boolean {
+    const types: Function[] = [String, Boolean, Number, Array, Object];
+    return !types.includes(metatype);
+  }
+}
+```
+
+```ts [使用]
+@Post('page')
+async getPages(@Body(new ValidationDtoPipe()) pageInfo: DogDto) {
+  return pageInfo;
+}
+```
+
+:::
+当类型不满足时，就会抛出异常。
+
+管道可以是`参数范围(parameter-scoped)`的、`方法范围(method-scoped)`的、`控制器范围的(controller-scoped)`或者`全局范围(global-scoped)`的。
