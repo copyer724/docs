@@ -846,3 +846,167 @@ async getPages(@Body(new ValidationDtoPipe()) pageInfo: DogDto) {
 当类型不满足时，就会抛出异常。
 
 管道可以是`参数范围(parameter-scoped)`的、`方法范围(method-scoped)`的、`控制器范围的(controller-scoped)`或者`全局范围(global-scoped)`的。
+
+_全局管道_
+
+全局作用域的管道用于整个应用程序的每个路由器。使用 `useGlobalPipes`
+
+```ts
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  app.useGlobalPipes(new ValidationPipe());
+  await app.listen(3000);
+}
+bootstrap();
+```
+
+_管道默认值_
+
+- 接收到 null 或者 undefined 值时，它们会抛出异常。
+- 在管道之前，把 DefaultValuePipe 实例化一下，就可以开启默认值了。
+
+```ts{3,4}
+@Get()
+async findAll(
+  @Query('activeOnly', new DefaultValuePipe(false), ParseBoolPipe) activeOnly: boolean,
+  @Query('page', new DefaultValuePipe(0), ParseIntPipe) page: number,
+) {
+  return this.catsService.findAll({ activeOnly, page });
+}
+```
+
+<hr />
+
+### 守卫
+
+守卫是一个使用 `@Injectable()` 装饰器的类。 守卫应该实现 `CanActivate` 接口。
+
+守卫具有单一职责。它们根据运行时的某些条件（如权限、角色、ACL 等）确定是否将处理给定请求，这通常称为**授权**
+
+> 在 express 中使用中间件来进行验证的，把授权信息带到全局的上下文
+
+但是中间件存在缺点：中间件是无知的，它不知道在调用 `next()` 后会执行哪个处理程序。**守卫**可以访问 `ExecutionContext` 实例，因此确切地知道接下来将执行什么。
+
+::: tip 提示
+请注意，守卫在所有中间件之后执行，但在拦截器或管道之前执行。
+:::
+
+_授权守卫_
+
+授权：特定路由应仅在调用者具有足够权限时可用。
+
+```ts [auth.guard.ts]
+import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
+import { Observable } from "rxjs";
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  canActivate(
+    context: ExecutionContext
+  ): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest();
+    /**
+     * validateRequest 里面验证逻辑
+     */
+    return validateRequest(request);
+  }
+}
+```
+
+每个守卫必须实现一个 `canActivate()` 函数，此函数返回一个布尔值，指示当前请求是否被允许。它可以同步或异步（通过 Promise 或 Observable）返回响应。
+
+- true: 允许
+- false: 拒绝
+
+守卫可以是`控制器范围`、`方法范围`或`全局范围`。
+
+_守卫使用_
+
+使用`@UseGuards()`装饰器设置了一个控制器范围的守卫。可以接受一个或者多个，使用逗号隔开。
+
+```ts
+import { UseGuards } from "@nestjs/common";
+
+@Controller("cats")
+@UseGuards(RolesGuard) // 传递的构造函数，实例化留给 nest，并启用依赖注入
+@UseGuards(new RolesGuard()) // 传递实例
+export class CatsController {}
+```
+
+::: code-group
+
+```ts{4} [方法守卫]
+@Controller("cats")
+export class CatsController {
+  @Get()
+  @UseGuards(RolesGuard)
+  find() {}
+}
+```
+
+```ts{2} [全局守卫]
+const app = await NestFactory.create(AppModule);
+app.useGlobalGuards(new RolesGuard());
+```
+
+:::
+
+_为路由设置特定角色_
+
+哪些角色可以访问这些路由
+
+方式一：采用自定义元数据
+
+```ts{4}
+import { SetMetadata } from '@nestjs/common'
+
+@Post()
+@SetMetadata('roles', ['admin']) // admin 角色能访问 key-value形式
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+```
+
+方式二：自定义装饰器
+
+自定义元素不是很优雅，可以采用装饰器来解决。
+
+```ts
+// roles.decorator.ts
+import { SetMetadata } from "@nestjs/common";
+
+export const Roles = (...roles: string[]) => SetMetadata("roles", roles);
+```
+
+```ts{2}
+@Post()
+@Roles('admin')
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+
+```
+
+定义好了角色限制，就来强化一下守卫，增强对角色的判断。
+
+```ts
+import { Injectable, CanActivate, ExecutionContext } from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+
+@Injectable()
+export class RolesGuard implements CanActivate {
+  constructor(private reflector: Reflector) {}
+
+  canActivate(context: ExecutionContext): boolean {
+    const roles = this.reflector.get<string[]>("roles", context.getHandler());
+    if (!roles) {
+      return true;
+    }
+    const request = context.switchToHttp().getRequest();
+    const user = request.user;
+    return matchRoles(roles, user.roles); // 是否匹配 // [!code error]
+  }
+}
+```
+
+`Reflector` 用于获取上下文。
