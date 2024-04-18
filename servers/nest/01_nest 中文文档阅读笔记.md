@@ -1094,3 +1094,9 @@ export class ExcludeNullInterceptor implements NestInterceptor {
 
 - `handle()`返回一个 `Observable`。这个流包含来自路由处理程序返回的值，因此我们可以使用 RxJS 的 map()操作符轻松地对其进行变换。
 - 将每个 `null` 值转换为空字符串`''
+
+### 自定义装饰器
+
+- 在 Node.js 世界中，通常的做法是将属性附加到 request 对象上
+- 与管道一起使用
+- 组合装饰器
