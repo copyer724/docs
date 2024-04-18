@@ -222,56 +222,240 @@
      * 若使用了其他的库，就需要指定导入路径
      */
     "jsxImportSource": "preact/jsx-runtime",
-    // "reactNamespace": "",                             /* Specify the object invoked for 'createElement'. This only applies when targeting 'react' JSX emit. */
-    // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
-    // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
-    // "moduleDetection": "auto",                        /* Control what method is used to detect module-format JS files. */
+    /**
+     * 用于指定 React 组件的命名空间
+     * 不常用了
+     */
+    "reactNamespace": "",
+    /**
+     * 禁用包含任何库文件，包括默认的lib.d.ts
+     */
+    "noLib": true,
+    /**
+     * 用于控制类字段的初始化方式
+     */
+    "useDefineForClassFields": true,
 
-    /* Modules */
-    "module": "commonjs",                                /* Specify what module code is generated. */
-    // "rootDir": "./",                                  /* Specify the root folder within your source files. */
-    // "moduleResolution": "node10",                     /* Specify how TypeScript looks up a file from a given module specifier. */
-    // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
-    // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
-    // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
-    // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
-    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
-    // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
-    // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
-    // "allowImportingTsExtensions": true,               /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */
-    // "resolvePackageJsonExports": true,                /* Use the package.json 'exports' field when resolving package imports. */
-    // "resolvePackageJsonImports": true,                /* Use the package.json 'imports' field when resolving imports. */
-    // "customConditions": [],                           /* Conditions to set in addition to the resolver-specific defaults when resolving imports. */
-    // "resolveJsonModule": true,                        /* Enable importing .json files. */
-    // "allowArbitraryExtensions": true,                 /* Enable importing files with any extension, provided a declaration file is present. */
-    // "noResolve": true,                                /* Disallow 'import's, 'require's or '<reference>'s from expanding the number of files TypeScript should add to a project. */
+    /**
+     * ========================================
+     * Modules: 模块
+     * ========================================
+     */
+    /**
+     * 设置程序的模块系统，
+     * "None"|"CommonJS"|"AMD"|"System"|"UMD"|"ES6"或 "ES2015"|"ESNext"|"ES2020"，
+     * 只有 "AMD"和 "System"能和 --outFile一起使用，
+     * "ES6"和 "ES2015"可使用在目标输出为 "ES5"或更低的情况下。
+     * 默认值：target === "ES6" ? "ES6" : "commonjs"
+     */
+    "module": "commonjs",
+    /**
+     * 用于指定输入文件的根目录。
+     * 通常用于控制编译过程中输入文件的位置和编译后输出目录的结构。
+     * 默认情况下，当前的项目目录会被视为根目录
+     */
+    "rootDir": "./",
+    /**
+     * 用于指定模块解析策略。TypeScript 编译器在编译时会根据这个策略来定位模块文件。
+     * 两个可能的值：Node 和 Classic。
+     *
+     * Node：这是默认设置，
+     * 当module选项被设置为commonjs、es2015、es2020、esnext、
+     * umd、system、amd、es2022或ESNext时，会使用Node.js风格的解析策略。
+     * 编译器会在node_modules文件夹和TypeScript类型定义文件（.d.ts）中查找模块。
+     * 这通常与Node.js项目兼容。
+     *
+     * Classic：这是旧的解析策略，用于在某些旧的项目中保持兼容性。
+     * 它会根据TypeScript 1.0之前的版本的行为来解析模块。
+     * 在Classic模式下，编译器会在项目根目录下和typings文件夹中查找模块
+     */
+    "moduleResolution": "node10",
+    /**
+     * 解析非相对模块的基地址，默认是当前目录
+     */
+    "baseUrl": "./",
+    /**
+     * 指定模块解析的路径映射
+     * paths属性需要与 baseUrl 属性一起使用，baseUrl指定了路径解析的基准目录
+     */
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    /**
+     * 用于指定多个根目录的数组
+     */
+    "rootDirs": ["src/client", "src/server"],
+    /**
+     * 指定 TypeScript 编译器查找类型声明文件（.d.ts 文件）的根目录
+     * 告诉编译器在哪里可以找到第三方库的类型声明文件。
+     */
+    "typeRoots": [],
+    /**
+     * 指定在编译过程中需要包含的类型声明文件的名称。
+     * 默认情况下，TypeScript 编译器会查找 node_modules/@types 目录下的类型声明文件。
+     * 然而，通过 types 选项，你可以指定应该包含哪些库的类型声明
+     */
+    "types": [],
+    /**
+     * typescript 3.5 版本之后
+     * 允许开发者在模块中引用 UMD（Universal Module Definition）全局声明
+     */
+    "allowUmdGlobalAccess": true,
+    /**
+     * 用于指定编译器在解析模块导入时应考虑的文件后缀名
+     * TypeScript 编译器会根据这些后缀名来查找对应的文件
+     */
+    "moduleSuffixes": ['.ts'、'.tsx'、'.d.ts'],
+    /**
+     * 允许开发者在非 TypeScript 文件中导入 .ts 或 .tsx 文件
+     * 默认情况下，这个选项是关闭的
+     */
+    "allowImportingTsExtensions": true,
+    /**
+     * 用于控制 TypeScript 如何解析 package.json 文件中的 exports 字段。
+     * auto（默认值）：TypeScript 将尝试自动解析 exports 字段。
+     * 如果 exports 字段存在并且有效，TypeScript 将使用它来确定模块的入口点。
+     * 如果 exports 字段不存在或无效，TypeScript 将回退到传统的模块解析机制。
+     *
+     * never：TypeScript 将忽略 exports 字段，并始终使用传统的模块解析机制
+     *
+     * preserve：TypeScript 将解析 exports 字段，但不会将其解析为实际的文件路径。
+     * 相反，它会保留 exports 字段的原始值，并在生成的代码中直接使用这个值
+     */
+    "resolvePackageJsonExports": true,
+    /**
+     * 使用包装。解析导入时的Json 'imports'字段。
+     */
+    "resolvePackageJsonImports": true,
+    "customConditions": [],
+    /**
+     * 允许导入 json 文件
+     */
+    "resolveJsonModule": true,
+    /**
+     * 允许通过查找 {file basename}.d.{extension}.ts 形式的声明文件来导入具有未知扩展名的文件。
+     * 当你需要导入那些不是标准 .ts 或 .tsx 扩展名的 TypeScript 声明文件时
+     */
+    "allowArbitraryExtensions": true,
+    /**
+     * 当指定了这个编译器标志时，
+     * TypeScript 编译器会忽略三斜线指令（/// <reference ... />）的解析
+     * 这意味着在编译过程中，三斜线指令不会添加新的文件，也不会改变给定文件的顺序。
+     */
+    "noResolve": true,
 
-    /* JavaScript Support */
-    // "allowJs": true,                                  /* Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files. */
-    // "checkJs": true,                                  /* Enable error reporting in type-checked JavaScript files. */
-    // "maxNodeModuleJsDepth": 1,                        /* Specify the maximum folder depth used for checking JavaScript files from 'node_modules'. Only applicable with 'allowJs'. */
+    /**
+     * ========================================
+     * JavaScript Support: 支持 js
+     * ========================================
+     */
+    /**
+     * 是否允许编译器编译 js、jsx 文件
+     */
+    "allowJs": true,
+    /**
+     * 在 js 文件中报告错误。与 allowJS 配合使用
+     */
+    "checkJs": true,
+    /**
+     * 控制 TypeScript 在解析 Node.js 模块时查找 JavaScript 文件的最大深度。
+     * 这个选项主要用于优化编译器的性能，
+     * 避免在大型项目中因为深度遍历 node_modules 目录而导致编译时间过长。
+     */
+    "maxNodeModuleJsDepth": 1,
 
-    /* Emit */
-    // "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-    // "declarationMap": true,                           /* Create sourcemaps for d.ts files. */
-    // "emitDeclarationOnly": true,                      /* Only output d.ts files and not JavaScript files. */
-    // "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
-    // "inlineSourceMap": true,                          /* Include sourcemap files inside the emitted JavaScript. */
-    // "outFile": "./",                                  /* Specify a file that bundles all outputs into one JavaScript file. If 'declaration' is true, also designates a file that bundles all .d.ts output. */
-    // "outDir": "./",                                   /* Specify an output folder for all emitted files. */
-    // "removeComments": true,                           /* Disable emitting comments. */
-    // "noEmit": true,                                   /* Disable emitting files from a compilation. */
-    // "importHelpers": true,                            /* Allow importing helper functions from tslib once per project, instead of including them per-file. */
-    // "importsNotUsedAsValues": "remove",               /* Specify emit/checking behavior for imports that are only used for types. */
-    // "downlevelIteration": true,                       /* Emit more compliant, but verbose and less performant JavaScript for iteration. */
-    // "sourceRoot": "",                                 /* Specify the root path for debuggers to find the reference source code. */
-    // "mapRoot": "",                                    /* Specify the location where debugger should locate map files instead of generated locations. */
-    // "inlineSources": true,                            /* Include source code in the sourcemaps inside the emitted JavaScript. */
-    // "emitBOM": true,                                  /* Emit a UTF-8 Byte Order Mark (BOM) in the beginning of output files. */
-    // "newLine": "crlf",                                /* Set the newline character for emitting files. */
-    // "stripInternal": true,                            /* Disable emitting declarations that have '@internal' in their JSDoc comments. */
-    // "noEmitHelpers": true,                            /* Disable generating custom helper functions like '__extends' in compiled output. */
-    // "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    /**
+     * ========================================
+     * Emit: 生成
+     * ========================================
+     */
+    /**
+     * 生成声明文件.d.ts，开启后会自动生成声明文件
+     */
+    "declaration": true,
+    /**
+     * 为 .d.ts 生成 sourcemap 文件
+     */
+    "declarationMap": true,
+    /**
+     * 仅生成 .d.ts 文件，不生成 js 文件
+     */
+    "emitDeclarationOnly": true,
+    /**
+     * 为 js 文件生成 source map 文件
+     */
+    "sourceMap": true,
+    /**
+     * 生成文件内的 source map 文件
+     */
+    "inlineSourceMap": true,
+    /**
+     * 用于指定将多个 TypeScript 文件编译到一个单独的 JavaScript 文件中的输出文件路径
+     */
+    "outFile": "./",
+    /**
+     * 用于指定编译后的 JavaScript 文件的输出目录
+     * 以及可能生成的声明文件 .d.ts 和映射文件 .map
+     */
+    "outDir": "./",
+    /**
+     * 删除所有注释
+     */
+    "removeComments": true,
+    /**
+     * 不输出文件,即编译后不会生成任何js文件
+     */
+    "noEmit": true,
+    /**
+     * 通过tslib引入helper函数，文件必须是模块
+     */
+    "importHelpers": true,
+    /**
+     * 用于控制如何处理那些只用作类型而非值的导入。
+     * 这个选项可以帮助你减少生成的 JavaScript 代码中的未使用导入，从而优化输出
+     *
+     * remove：移除所有仅用作类型的导入。这是优化输出代码大小的常用选择。
+     * preserve：保留所有导入，即使它们仅用作类型。这是保持源代码和输出代码一致性的选择。
+     * error：如果导入仅用作类型，则引发编译错误。这可以帮助你识别并修复那些可能不必要的导入。
+     */
+    "importsNotUsedAsValues": "remove",
+    /**
+     * 主要用于支持 ES3 和 ES5 目标中的迭代器和生成器协议
+     */
+    "downlevelIteration": true,
+    /**
+     * 它用于指定源代码的根目录路径, 生成的 source map 文件中表示源代码的位置
+     */
+    "sourceRoot": "",
+    /**
+     * mapRoot 用于指定生成的 source map 文件的输出目录
+     */
+    "mapRoot": "",
+    /**
+     * 编译器会在生成的 JavaScript 文件的末尾附加一个数据 URL
+     */
+    "inlineSources": true,
+    /**
+     * 用于控制是否在编译输出的 UTF-8 文件头部加上 BOM（Byte Order Mark）标志
+     */
+    "emitBOM": true,
+    /**
+     * 新起一行
+     */
+    "newLine": "crlf",
+    /**
+     * 它用于控制是否在编译输出中保留带有 @internal 注解的代码
+     */
+    "stripInternal": true,
+    /**
+     * 不生成helper函数，减小体积，需要额外安装，常配合importHelpers一起使用
+     */
+    "noEmitHelpers": true,
+    /**
+     * 当该选项设置为 true 时，如果在编译过程中遇到任何错误，
+     * TypeScript 编译器将不会生成任何输出文件（如 .js 或 .d.ts 文件）
+     */
+    "noEmitOnError": true,
     // "preserveConstEnums": true,                       /* Disable erasing 'const enum' declarations in generated code. */
     // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
     // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
