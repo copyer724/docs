@@ -1010,3 +1010,87 @@ export class RolesGuard implements CanActivate {
 ```
 
 `Reflector` 用于获取上下文。
+
+### 拦截器
+
+拦截器是使用 `@Injectable()` 装饰器注解的类。拦截器应该实现 `NestInterceptor` 接口。
+
+可以实现：
+
+- 在函数执行之前/之后绑定额外的逻辑
+- 转换从函数返回的结果
+- 转换从函数抛出的异常
+- 扩展基本函数行为
+- 根据所选条件完全重写函数 (例如, 缓存目的)
+
+_基础知识_
+
+- 每个拦截器都有 `intercept()` 方法，它接收 2 个参数。
+- 第一个参数：`ExecutionContext`，执行上下文，继承至 ArgumentsHost。
+- 第二个参数： `CallHandler`，CallHandler 实现了 `handle` 函数，在拦截器的某个地方使用它来调用路由处理程序方法
+
+::: code-group
+
+```ts [拦截器定义]
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+} from "@nestjs/common";
+import { Observable } from "rxjs";
+
+@Injectable()
+export class logIntercept implements NestInterceptor {
+  intercept(
+    context: ExecutionContext,
+    next: CallHandler<any>
+  ): Observable<any> | Promise<Observable<any>> {
+    console.log("before", context);
+    next.handle();
+    console.log("after");
+  }
+}
+```
+
+```ts{1} [使用拦截器]
+import { UseInterceptors } from '@nestjs/common'
+
+@UseInterceptors(LoggingInterceptor)
+export class CatsController {}
+```
+
+:::
+
+在使用过程中，
+
+- `@UseInterceptors` 还是传递的构造函数，把依赖注入留给 nest 内部进行处理。也可以传递实例。
+- 上面的拦截器应用在`控制器`上, 也可以应用在`方法`上，以及`全局`。
+
+```ts
+const app = await NestFactory.create(AppModule);
+app.useGlobalInterceptors(new LoggingInterceptor());
+```
+
+_基本案例_
+
+```ts
+import {
+  Injectable,
+  NestInterceptor,
+  ExecutionContext,
+  CallHandler,
+} from "@nestjs/common";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
+@Injectable()
+export class ExcludeNullInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    return next.handle().pipe(map((value) => (value === null ? "" : value)));
+  }
+}
+```
+
+- `handle()`返回一个 `Observable`。这个流包含来自路由处理程序返回的值，因此我们可以使用 RxJS 的 map()操作符轻松地对其进行变换。
+- 将每个 `null` 值转换为空字符串`''

@@ -456,22 +456,73 @@
      * TypeScript 编译器将不会生成任何输出文件（如 .js 或 .d.ts 文件）
      */
     "noEmitOnError": true,
-    // "preserveConstEnums": true,                       /* Disable erasing 'const enum' declarations in generated code. */
-    // "declarationDir": "./",                           /* Specify the output directory for generated declaration files. */
-    // "preserveValueImports": true,                     /* Preserve unused imported values in the JavaScript output that would otherwise be removed. */
+    /**
+     * 用于控制在编译过程中是否保留 const enum 类型的枚举
+     */
+    "preserveConstEnums": true,
+    /**
+     * 用于指定生成的 .d.ts 声明文件的输出目录
+     * 默认的与对应的 .ts 文件相同的目录
+     * 将声明文件与实现文件分开存放时，以便于管理和发布
+     */
+    "declarationDir": "dist/types",
+    /**
+     * 用于处理 TypeScript 代码中的 import 语句
+     * 使用 preserveValueImports 可以确保这些 import 语句不会被编译器错误地消除，
+     * 从而避免运行时错误
+     */
+    "preserveValueImports": true,
 
-    /* Interop Constraints */
-    // "isolatedModules": true,                          /* Ensure that each file can be safely transpiled without relying on other imports. */
-    // "verbatimModuleSyntax": true,                     /* Do not transform or elide any imports or exports not marked as type-only, ensuring they are written in the output file's format based on the 'module' setting. */
-    // "allowSyntheticDefaultImports": true,             /* Allow 'import x from y' when a module doesn't have a default export. */
-    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
-    // "preserveSymlinks": true,                         /* Disable resolving symlinks to their realpath. This correlates to the same flag in node. */
-    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    /**
+     * ========================================
+     * Interop Constraints: 完整性约束
+     * ========================================
+     */
+    /**
+     * 将每个文件作为单独的模块
+     * 不依赖其他的导入
+     */
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    /**
+     * 用于处理 ES6 模块默认导入的语法
+     * 在 ts 中使用 es6 语法来导入一个 cjs，就会报错。
+     * 设置为 true, 就能正常支持
+     */
+    "allowSyntheticDefaultImports": true,
+    /**
+     * 用于指定在导入默认导出时是否应将其转换为具名导出或命名空间导入
+     */
+    "esModuleInterop": true,
+    /**
+     * 保留符号链接（symlinks）在模块解析过程中的原始路径
+     */
+    "preserveSymlinks": true,
+    /**
+     * 禁止对同一个文件的不一致的引用
+     */
+    "forceConsistentCasingInFileNames": true,
 
-    /* Type Checking */
-    "strict": true,                                      /* Enable all strict type-checking options. */
-    // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
-    // "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
+    /**
+     * ========================================
+     * Type Checking: 类型检查
+     * ========================================
+     */
+    /**
+     * 启用严格模式
+     */
+    "strict": true,
+    /**
+     * 不允许隐式的any类型,在表达式和声明上有隐含的 any类型时报错
+     */
+    "noImplicitAny": true,
+    /**
+     * 用于启用严格的空值检查
+     * TypeScript 编译器会执行更严格的空值检查，
+     * 确保变量在使用前已经被正确地初始化，
+     * 并且不会被意外地赋值为 null 或 undefined
+     */
+    "strictNullChecks": true,
     // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
     // "strictBindCallApply": true,                      /* Check that the arguments for 'bind', 'call', and 'apply' methods match the original function. */
     // "strictPropertyInitialization": true,             /* Check for class properties that are declared but not set in the constructor. */
