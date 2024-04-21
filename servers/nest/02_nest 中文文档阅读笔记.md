@@ -63,7 +63,7 @@ _响应处理_：
 
 _状态码_：
 
-处理 Post 请求之外，都是 200，Post 是 201，可以通过 `HttpCode` 来指定
+除了 Post 请求之外，都是 200，Post 是 201，可以通过 `HttpCode` 来指定
 
 ```ts
 import { Controller, Post, HttpCode } from "@nestjs/common";
