@@ -2,6 +2,14 @@
 aside: false
 ---
 
+::: timeline 2024
+
+- [Nest 模块](https://juejin.cn/post/7364785558802350090)
+- [Nest 装饰器](https://juejin.cn/post/7364051847177289728)
+- [Nest 安装，指令，及入口文件分析](https://juejin.cn/post/7363836438935011363)
+
+:::
+
 ::: timeline 2023
 
 - [实战小程序登录](https://juejin.cn/post/7305582809811353600)
