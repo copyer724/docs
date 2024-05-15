@@ -246,6 +246,33 @@ setTimeout(() => {
 
 上面演示了一遍常用的 hooks ，但是还有其他的 hooks，比如 AsyncSeriesBailHook、AsyncSeriesWaterfallHook、AsyncSeriesLoopHook 等等，理解了各自的特性之后，也就很清楚了它们的作用。（实际场景，实际分析，实际采用）
 
+还是来看一个不常用的 hooks 吧。
+
+```ts
+const { AsyncSeriesBailHook } = require("tapable");
+const hook = new AsyncSeriesBailHook(["name", "age"]);
+hook.tapAsync("event1", (name, age, callback) => {
+  setTimeout(() => {
+    console.log("event1 事件触发:", name, age);
+    callback();
+    return true; // 这里存在 return， 也存在 callback
+  }, 2000);
+});
+hook.tapAsync("event2", (name, age, callback) => {
+  setTimeout(() => {
+    console.log("event2 事件触发:", name, age);
+    callback();
+  }, 1000);
+});
+setTimeout(() => {
+  hook.callAsync("copyer", 18, () => {
+    console.log("所有触发事件都执行完成");
+  });
+}, 1000);
+```
+
+如果先 return ，就会采用 Bail 特性，就会退出该事件；如果先执行 callback, 就会采用 Series 特性，表示当前事件已经执行完成，触发了下一个事件。
+
 ## 模拟 webpack 中的 compiler 对象
 
 首先得知道 compiler 对象是干什么的？
