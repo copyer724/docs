@@ -7,6 +7,11 @@
 ## 近期学习目标和方向
 
 - `nestjs` 学习
+  - mock 接口请求，接受入参，返回出参
+  - wss
+  - 文件上传
+  - 大文件长传
+  - oss
 - 自主搭建脚手架（`@copyer/react-admin`, `@copyer/vue-admin`）
 - `@copyer-utils` 函数库的编写和发布 npm
   - isNil
