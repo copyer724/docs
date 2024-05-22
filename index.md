@@ -20,10 +20,10 @@ features:
   - title: 座右铭
     icon: 🚀
     details: 每天多问自己几个为什么，总有想象不到的意外收获。
-  - title: 阅读风格
+  - title: 坚持
     icon: 🌴
-    details: 阅读之前，先思考篇前疑问，再进行阅读，效果💯💯。
-  - title: 终极目标
+    details: 温故而知新。阅读之前，先思考篇前疑问，再进行阅读，效果💯💯。
+  - title: 激情
     icon: 🔥
-    details: 向人民币看齐🌈🌈🌈。
+    details: 久练则诚，剑无虚发；一剑统治怜悯，一剑送葬绝望。
 ---
