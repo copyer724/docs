@@ -281,7 +281,7 @@ setTimeout(() => {
 
 不过多分析。
 
-<img src="/public/images/engineerings/webpack/sources/02_tapable.png" />
+<img src="/images/engineerings/webpack/sources/02_tapable.png" />
 
 webpack 暴露了 `this.hooks` 对象中的属性方法。那么我们就可以根据属性，继续扩展注册事件，做一些我们想要实现的功能。当 hooks 的属性方法内部被触发时，我们自定义的事件也就被触发了。
 
