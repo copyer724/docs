@@ -11,6 +11,7 @@
 - [RESTful 设计风格](./05_RESTful%20设计风格.md)
 - [providers 细说](./06_providers%20细说.md)
 - [nest http 状态码](./07_nest%20http状态码.md)
+- [Nest 基础语法](./08_Nest%20基础语法.md)
 
 ### 项目路径结构
 
