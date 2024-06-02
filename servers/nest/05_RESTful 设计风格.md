@@ -26,7 +26,9 @@ resuful 风格：业务逻辑，着重在于**请求方式**区分
 ## 版本
 
 正常接口：http://localhost/api/getUserInfo
+
 v1 版本：http://localhost/api/v1/getUserInfo
+
 v2 版本：http://localhost/api/v2/getUserInfo
 
 使用场景：迭代，使用接口版本控制。
