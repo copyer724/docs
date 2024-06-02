@@ -550,7 +550,7 @@ class Controller {
 
 ::: tip
 
-nest 中 HttpStatus 中的状态码: [nest http 状态码](./07_nest%20http状态码.md)
+nest 中 HttpStatus 中的状态码: [nest http 状态码](./02_nest%20http状态码.md)
 :::
 
 `HttpException` 接受两个参数：
