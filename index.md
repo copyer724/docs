@@ -13,7 +13,7 @@ hero:
       text: 码农知识
       link: basics/hc/
     - theme: alt
-      text: 关于码农
+      text: 关于我
       link: /about
 
 features:
@@ -27,3 +27,10 @@ features:
     icon: 🔥
     details: 久练则诚，剑无虚发；一剑统治怜悯，一剑送葬绝望。
 ---
+
+### 新知识学习步骤
+
+1. 它是什么？
+2. 为什么要学习？使用场景在哪里？
+3. 怎么使用？具体语法是什么？
+4. 加分项：为什么要这么使用？
