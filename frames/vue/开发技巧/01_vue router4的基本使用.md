@@ -151,6 +151,9 @@ const btn = () => {
 };
 ```
 
+:::warning params 方式只能通过 name 形式跳转，不能通过 path 形式跳转
+:::
+
 _获取方式_
 
 - options apis: `this.$route`
