@@ -336,3 +336,54 @@ navigate("/aa/bb/cc"); // /aa/bb/cc
 ```
 
 当路径字符串以 `/` 开头，就会看成绝对路径，如果以 `./` 或者 `../` 就会看成相对路径，进行 cd 操作。如果没有上面两张情况的字符串，就是直接是字符串拼接。
+
+#### matchPath 函数
+
+在 react-router-dom 中，提供了 `matchPath` 函数，用于判断当前路径是否匹配某个路由。
+
+```ts
+/**
+ * patten: 路由定义时的path属性
+ * path: 当前 url 的 pathname
+ */
+matchPath(patten, path);
+```
+
+测试动态路由(params)
+
+```ts
+let a = "/aa/:id/detail";
+let b = "/aa/12/detail";
+const res = matchPath(a, b);
+console.log(res);
+```
+
+结果
+
+```json
+{
+  "params": {
+    "id": "12"
+  },
+  "pathname": "/aa/12/detail",
+  "pathnameBase": "/aa/12/detail",
+  "pattern": {
+    "path": "/aa/:id/detail",
+    "caseSensitive": false,
+    "end": true
+  }
+}
+```
+
+测试动态路由(query)
+
+```ts
+let a = "/aa";
+let b = "/aa?nam=12";
+const res = matchPath(a, b);
+console.log(res); // null
+```
+
+针对这种方式匹配，还是需要去除问号
+
+> 可以具体想一下 matchPath 函数的实现，还是挺有意思的

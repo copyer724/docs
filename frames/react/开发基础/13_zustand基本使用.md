@@ -1,5 +1,7 @@
 # zustand 基本使用
 
+https://github.com/pmndrs/zustand
+
 ### 介绍
 
 - `轻量级` ：Zustand 的整个代码库非常小巧，gzip 压缩后仅有 1KB，对项目性能影响极小。
@@ -151,6 +153,23 @@ const useStore = create((set) => ({
     set({ items });
   },
 }));
+```
+
+#### 组件中使用
+
+```ts
+// 不推荐直接这样写，只要发生改变，组件就会重新更新
+const state = useXxxStore();
+
+// zustand 采用值相等的情况下，进行更新 oldValue = newValue
+const nuts = useXxxStore((state) => state.nuts);
+const honey = useXxxStore((state) => state.honey);
+
+// 如果不想写多个 useXxxStore，可以采用浅比较 shallow，无论是数字、字符串、对象等，只要值相等，就不会更新
+import { useShallow } from "zustand/react/shallow";
+const { nuts, honey } = useBearStore(
+  useShallow((state) => ({ nuts: state.nuts, honey: state.honey }))
+);
 ```
 
 ### 中间件原理
