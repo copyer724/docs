@@ -63,6 +63,15 @@ export const nav: NavItem[] = [
     ],
   },
   {
+    text: "LeetCode",
+    items: [
+      { text: "数组篇", link: "/leetcode/array/" },
+      { text: "链表篇", link: "/leetcode/link/" },
+      { text: "回溯算法篇", link: "/leetcode/recall/" },
+      { text: "动态规划", link: "/leetcode/dynamic/" },
+    ],
+  },
+  {
     text: "理论与实操",
     items: [
       { text: "理论细说", link: "/theory/theory/" },

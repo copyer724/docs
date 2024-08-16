@@ -31,6 +31,10 @@ const sides = [
     children: ["node", "express", "koa", "nest", "sql"],
   },
   {
+    text: "leetcode",
+    children: ["array", "link", "recall", "dynamic"],
+  },
+  {
     text: "theory",
     children: ["theory", "action", "tool"],
   },

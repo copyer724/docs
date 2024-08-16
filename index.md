@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "石膏银码农"
-  text: "Copyer"
+  name: "Copyer"
+  text: "石膏银码农"
   tagline: 当什么困难都没有了，机会也就随之没有了。
   image:
     src: /home.svg
