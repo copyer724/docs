@@ -1,0 +1,87 @@
+<script setup>
+import { ref, onMounted, onUpdated } from "vue";
+import { Transformer } from "markmap-lib";
+import { Markmap } from "markmap-view";
+
+const transformer = new Transformer();
+
+const initValue = `
+# 思维导图
+ 
+1. 标题1
+ - 子标题1
+ - 子标题2
+3. 标题2
+4. 标题3
+- beautiful
+- useful
+- easy
+- interactive
+`;
+
+const mm = ref();
+const svgRef = ref();
+
+const update = () => {
+  const { root } = transformer.transform(initValue);
+  mm.value.setData(root);
+  mm.value.fit();
+};
+
+const zoomIn = () => mm.value.rescale(1.25);
+
+const zoomOut = () => mm.value.rescale(0.8);
+
+const fitToScreen = () => mm.value.fit();
+
+onMounted(() => {
+  // 初始化markmap思维导图
+  mm.value = Markmap.create(svgRef.value);
+  // 更新思维导图渲染
+  update();
+});
+
+onUpdated(update);
+</script>
+
+<template>
+  <div class="mind">
+    <div class="svg-container">
+      <svg ref="svgRef"></svg>
+    </div>
+    <div class="controls">
+      <button @click="zoomIn">放大</button>
+      <button @click="zoomOut">缩小</button>
+      <button @click="fitToScreen">适应屏幕</button>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.mind {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.svg-container {
+  flex: 1;
+}
+
+.svg-container svg {
+  width: 100%;
+  height: 100%;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.controls {
+  margin-top: 10px;
+}
+</style>

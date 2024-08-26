@@ -24,6 +24,10 @@ export default defineConfig({
     config: (md) => {
       md.use(timeline);
     },
+    image: {
+      // 开启懒加载
+      lazyLoading: true,
+    },
   },
   themeConfig: {
     logo: "/logo.svg",
