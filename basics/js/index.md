@@ -21,8 +21,4 @@
 - [原型链](./JavaScript%20高级/07_原型链.md)
 - [❎ 垃圾回收](./JavaScript%20高级/08_垃圾回收.md)
 
-<script setup>
-import home from '../../.vitepress/components/mind.vue'
-</script>
 
-<home />

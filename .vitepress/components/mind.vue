@@ -7,16 +7,21 @@ const transformer = new Transformer();
 
 const initValue = `
 # 思维导图
+
+## link
+
+### loknke
  
 1. 标题1
- - 子标题1
- - 子标题2
+2. 标题2
+  - 子标题1
+  - 子标题2
 3. 标题2
 4. 标题3
-- beautiful
-- useful
-- easy
-- interactive
+  - beautiful
+  - useful
+  - easy
+  - interactive
 `;
 
 const mm = ref();
@@ -60,13 +65,14 @@ onUpdated(update);
 <style scoped>
 .mind {
   width: 100%;
-  height: 100%;
+  height: 90vh;
   display: flex;
   flex-direction: column;
 }
 
 .svg-container {
   flex: 1;
+  background-color: #e8e6e6;
 }
 
 .svg-container svg {
@@ -76,12 +82,16 @@ onUpdated(update);
 
 .controls {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   height: 50px;
 }
-
-.controls {
-  margin-top: 10px;
+.controls button {
+  margin-left: 10px;
+  box-sizing: border-box;
+  padding: 4px 8px;
+  background-color: var(--vp-c-brand-1);
+  border-radius: 10px;
+  color: #fff;
 }
 </style>

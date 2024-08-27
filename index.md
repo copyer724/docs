@@ -20,12 +20,20 @@ features:
   - title: 座右铭
     icon: 🚀
     details: 每天多问自己几个为什么，总有想象不到的意外收获。
+    link: "/basics/js/index.md"
+    linkText: 码农知识
   - title: 坚持
     icon: 🌴
     details: 温故而知新。阅读之前，先思考篇前疑问，再进行阅读，效果💯💯。
   - title: 激情
     icon: 🔥
     details: 久练则诚，剑无虚发；一剑统治怜悯，一剑送葬绝望。
+  - title: NestJS
+    icon:
+      src: /images/mind/nestjs.svg
+    details: 企业级的 Node 框架，Node 中的 SpringBoot。
+    link: minds/nestjs.md
+    linkText: 知识脑图
 ---
 
 ### 新知识学习步骤
