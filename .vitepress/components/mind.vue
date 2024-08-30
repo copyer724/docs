@@ -3,32 +3,21 @@ import { ref, onMounted, onUpdated } from "vue";
 import { Transformer } from "markmap-lib";
 import { Markmap } from "markmap-view";
 
+const props = defineProps({
+  data: {
+    type: String,
+  },
+});
+
 const transformer = new Transformer();
-
-const initValue = `
-# 思维导图
-
-## link
-
-### loknke
- 
-1. 标题1
-2. 标题2
-  - 子标题1
-  - 子标题2
-3. 标题2
-4. 标题3
-  - beautiful
-  - useful
-  - easy
-  - interactive
-`;
 
 const mm = ref();
 const svgRef = ref();
 
+console.log(props);
+
 const update = () => {
-  const { root } = transformer.transform(initValue);
+  const { root } = transformer.transform(props.data ?? ``);
   mm.value.setData(root);
   mm.value.fit();
 };

@@ -2,37 +2,43 @@
   "hash": "d4690cf8",
   "configHash": "cc53ae22",
   "lockfileHash": "98a7a7a4",
-  "browserHash": "d51bdd6f",
+  "browserHash": "79110480",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "95b3370a",
+      "fileHash": "e1cb05a8",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.27_vue@3.4.22/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "e2d9cc1d",
+      "fileHash": "7a796bd6",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.22/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "1b1badfb",
+      "fileHash": "e6be5103",
       "needsInterop": false
     },
     "markmap-lib": {
       "src": "../../../node_modules/.pnpm/markmap-lib@0.17.0_markmap-common@0.17.0/node_modules/markmap-lib/dist/browser/index.mjs",
       "file": "markmap-lib.js",
-      "fileHash": "b3acca5d",
+      "fileHash": "fd02dfac",
       "needsInterop": false
     },
     "markmap-view": {
       "src": "../../../node_modules/.pnpm/markmap-view@0.17.0_markmap-common@0.17.0/node_modules/markmap-view/dist/index.js",
       "file": "markmap-view.js",
-      "fileHash": "77351af7",
+      "fileHash": "24e246dc",
       "needsInterop": false
+    },
+    "autoprefixer": {
+      "src": "../../../node_modules/.pnpm/autoprefixer@10.4.19_postcss@8.4.38/node_modules/autoprefixer/lib/autoprefixer.js",
+      "file": "autoprefixer.js",
+      "fileHash": "e397bef6",
+      "needsInterop": true
     }
   },
   "chunks": {
