@@ -28,6 +28,12 @@ features:
   - title: 激情
     icon: 🔥
     details: 久练则诚，剑无虚发；一剑统治怜悯，一剑送葬绝望。
+  - title: uni-app
+    icon:
+      src: /images/mind/uniapp.svg
+    details: uni-app 是一个使用 Vue.js 开发所有前端应用的框架，编写一套代码，可发布到等多个平台。
+    link: minds/uniapp.md
+    linkText: 知识脑图
   - title: NestJS
     icon:
       src: /images/mind/nestjs.svg
