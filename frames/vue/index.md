@@ -20,3 +20,7 @@
 - [ref 源码分析](./深入原理/01_ref%20源码分析.md)
 - [watch 和 watchEffect 源码分析](./深入原理/02_watch%20和%20watchEffect%20源码分析.md)
 - [vue3 宏](./深入原理/03_vue3%20宏.md)
+
+## 技术升级
+
+- [vue3.5 升级要点](https://blog.vuejs.org/posts/vue-3-5)
