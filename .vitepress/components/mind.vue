@@ -14,8 +14,6 @@ const transformer = new Transformer();
 const mm = ref();
 const svgRef = ref();
 
-console.log(props);
-
 const update = () => {
   const { root } = transformer.transform(props.data ?? ``);
   mm.value.setData(root);
