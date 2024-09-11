@@ -45,7 +45,7 @@ docker run --name copyer-test -p 3000:80 -v /tmp/aaa:/usr/share/nginx/html -e KE
 
 `-d`: 后台运行（镜像：版本）
 
-docker run 执行之后，会返回一个容器的 hash（下面图片有所展示）。1
+docker run 执行之后，会返回一个容器的 hash（下面图片有所展示）。
 
 <img src="/images/engineerings/other/docker04.png" style="zoom: 50%" />
 
@@ -54,7 +54,7 @@ docker run 执行之后，会返回一个容器的 hash（下面图片有所展�
 - bind mounts: 数据卷目录映射
 - files: 容器目录内容
 
-最后通过 http://localhost:3000/index.html（数据卷下面的内容都可以访问） 就能进行访问了。
+最后通过 `http://localhost:3000/index.html`（数据卷下面的内容都可以访问） 就能进行访问了。
 
 ### docker 命令
 
