@@ -5,6 +5,8 @@
 - [mysql](./01_mysql.md)
 - [sql 语句](./02_sql%20语句.md)
 - [monogodb](./03_monogodb.md)
+- [typeorm](./04_TypeORM.md)
+- [prisma](./05_prisma.md)
 
 ## 为什么选择数据库
 
