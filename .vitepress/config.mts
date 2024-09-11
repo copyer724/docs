@@ -53,4 +53,9 @@ export default defineConfig({
       copyright: "Copyright by @Copyer 2024-01-01",
     },
   },
+  vite: {
+    server: {
+      port: 7240,
+    },
+  },
 });

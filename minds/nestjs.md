@@ -76,6 +76,8 @@ const data = ref(`
   - npm: ioredis
   - nest 中使用
 
+### 连接数据库 prisma
+
 `)
 </script>
 
