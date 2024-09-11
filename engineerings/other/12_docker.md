@@ -45,7 +45,7 @@ docker run --name copyer-test -p 3000:80 -v /tmp/aaa:/usr/share/nginx/html -e KE
 
 `-d`: 后台运行（镜像：版本）
 
-docker run 执行之后，会返回一个容器的 hash（下面图片有所展示）。
+docker run 执行之后，会返回一个容器的 hash（下面图片有所展示）。1
 
 <img src="/images/engineerings/other/docker04.png" style="zoom: 50%" />
 
