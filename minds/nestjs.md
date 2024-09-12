@@ -77,6 +77,12 @@ const data = ref(`
   - nest 中使用
 
 ### 连接数据库 prisma
+  - prisma
+  - @prisma/client
+
+### dto 验证
+  - class-validator
+  - class-transformer
 
 `)
 </script>

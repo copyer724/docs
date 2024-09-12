@@ -1,4 +1,6 @@
-# nest 状态码
+# nest 内置模块
+
+## nest 状态码
 
 nest 内部提供了一些列的状态码。
 
@@ -60,5 +62,3 @@ export declare enum HttpStatus {
   HTTP_VERSION_NOT_SUPPORTED = 505,
 }
 ```
-
-上面只需要记住几个常用即可。当实在用到的时候，再去查询。

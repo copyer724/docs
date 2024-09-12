@@ -1,10 +1,18 @@
-# nest 操作数据库
+# Nest 操作数据库
 
-连接数据库：`mysql2` 和 `typeorm` 两种方式来操作 MysSQL 数据库
+### 连接方式
+
+- mysql2
+- typeora
+- prisma
+
+### mysql2
 
 - mysql2: 操作 sql 语句
   - createConnection： 创建数据库
   - createPool：创建连接池
+
+### typeorm
 
 `ORM` 是 `Object Relational Mapping`，对象关系映射，让 ORM 框架自动执行 sql 去同步数据库
 
@@ -48,4 +56,10 @@ export const AppDataSource = new DataSource({
     authPlugin: "sha256_password",
   },
 });
+```
+
+### prisma
+
+```bash
+npx prisma init
 ```
