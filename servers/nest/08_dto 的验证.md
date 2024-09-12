@@ -22,6 +22,7 @@ import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 - @IsOptional()：可选的
 - @IsIn(['x', 'y'])：枚举
 - @IsNotIn()：枚举之外
+- @Matches(//, {message: ''})：正则匹配
 
 ## 字符串
 
