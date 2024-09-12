@@ -76,3 +76,100 @@ export class CreateCatDto {
   age?: number;
 }
 ```
+
+## 合并装饰器
+
+为什么需要合并装饰器呢？一个接口的 swagger 始终有这几部分组成：`接口描述元数据`，`接口返回值元数据`，`接口参数元数据（可选）`。
+
+那么是不是可以进行组合封装一下呢？但是针对`接口参数元数据`，我们无法做到合并，因为参数元数据是动态的，无法确定。
+
+那么就针对接口描述元数据，和返回值元数据进行合并。
+
+在 nestJs 中提供了一个函数`applyDecorators`，用于合并装饰器
+
+```ts
+import { ApiOperation, ApiResponse, ApiProperty } from "@nestjs/swagger";
+import { applyDecorators, HttpStatus } from "@nestjs/common";
+
+interface SwaggerResponseOptions {
+  /** 名称 */
+  summary: string;
+  /** 返回数据类型 */
+  resultType: any;
+  /** 描述  */
+  description?: string;
+  /** 成功状态码 */
+  successStatus?: HttpStatus;
+  /** 成功描述 */
+  successDesc?: string;
+  /** 错误状态码 */
+  errorStatus?: HttpStatus;
+  /** 错误描述 */
+  errorDesc?: string;
+}
+export const SwaggerResponse = (options: SwaggerResponseOptions) => {
+  const {
+    summary,
+    resultType,
+    description,
+    successStatus = HttpStatus.OK,
+    successDesc = "请求成功",
+    errorStatus = HttpStatus.INTERNAL_SERVER_ERROR,
+    errorDesc = "请求失败",
+  } = options;
+  return applyDecorators(
+    // 接口描述
+    ApiOperation({
+      summary: summary,
+      description: description ?? `${summary}`,
+    }),
+    // 成功响应
+    ApiResponse({
+      status: successStatus,
+      description: successDesc,
+      type: resultType,
+    }),
+    // 失败响应
+    ApiResponse({
+      status: errorStatus,
+      description: errorDesc,
+    })
+  );
+};
+```
+
+这样在每个接口处，只需要支持使用 `SwaggerResponse` 注解，就可以自动生成对应的接口文档。
+
+## 身份认证
+
+三种方式：
+
+- jwt：@ApiBearerAuth('bearer')
+- cookie：@ApiCookieAuth('cookie')
+- 登录密码：@ApiBasicAuth('basic')
+
+在 `main.ts` 中新增配置：
+
+```ts{6-20}
+const config = new DocumentBuilder()
+  .setTitle("Test example")
+  .setDescription("The API description")
+  .setVersion("1.0")
+  .addTag("test")
+  .addBasicAuth({
+    type: "http",
+    name: "basic",
+    description: "用户名 + 密码",
+  })
+  .addCookieAuth("sid", {
+    type: "apiKey",
+    name: "cookie",
+    description: "基于 cookie 的认证",
+  })
+  .addBearerAuth({
+    type: "http",
+    description: "基于 jwt 的认证",
+    name: "bearer",
+  })
+  .build();
+```
