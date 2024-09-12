@@ -73,3 +73,4 @@ import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 - @IsIP()：ip
 - @IsPort()：端口
 - @IsJSON()：JSON
+- @IsMobilePhone('zh-CN')：验证手机号
