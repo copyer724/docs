@@ -7,8 +7,10 @@
 - [Nest 内置模块](./02_nest%20内置模块.md)
 - [restful 及设计规范](./03_RESTful及设计规范.md)
 - [Nest 功能封装](./04_Nest%20功能封装.md)
+- [Nest 集成 Swagger](./05_Nest%20集成%20Swagger.md)
 - [Nest 操作数据库](./06_Nest%20操作数据库.md)
 - [文件上传](./07_文件上传.md)
+- [dto 验证](./08_dto%20的验证.md)
 
 ### 项目路径结构
 
