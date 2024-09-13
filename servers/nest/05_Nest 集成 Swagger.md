@@ -173,3 +173,7 @@ const config = new DocumentBuilder()
   })
   .build();
 ```
+
+## 文件上传
+
+https://juejin.cn/post/7234058578801311781
