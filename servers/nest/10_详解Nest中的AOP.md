@@ -16,7 +16,7 @@ pipe 管道，在参数传递给 handler 之前，先对参数进行`验证`和`
 
 <img src="/images/servers/nest/pipe01.png" />
 
-pipe 的执行时机，是在执行 handler 自执行之前(callback.apply)，就会执行 pipe，进行参数验证和转化。
+pipe 的执行时机，是在 handler 自执行之前(callback.apply)，就会执行 pipe 函数，进行参数验证和转化。
 
 并且会对每个参数做转化（有 pipe 执行 pipe 方法， 没有 pipe 直接返回 value）
 
@@ -48,11 +48,11 @@ export class ValidatePipe implements PipeTransform {
 }
 ```
 
-要点就是实现 PipeTransform 类中的 `transform` 方法。
+要点就是实现 PipeTransform 类中的 `transform` 方法，验证 value 以及转换 value。
 
 ### 内置 pipe
 
-在 Nest 中，都已经内置了各种 `pipe`（通俗的来说，就是各种类型的验证器和转化器）。
+在 Nest 中，都已经内置了各种 `pipe`
 
 ```ts
 import {
