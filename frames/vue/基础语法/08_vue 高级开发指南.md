@@ -261,6 +261,8 @@ export default function withHover(Component) {
 }
 ```
 
+:::
+
 ## render 函数
 
 在 vue3 编译时，会把 template 转变为 render 函数，render 函数后续就会生成虚拟 dom，最后生成真实 dom。
@@ -276,3 +278,96 @@ export default {
   },
 };
 ```
+
+## 插槽
+
+- 基本使用，组件内嵌入 `<slot />`
+- 插槽默认值
+- 具名插槽 `<slot name="copyer"></slot>` 默认值是 default
+- `v-slot` 指定插槽名，只能写在 template 标签上，简写为 `#`
+- 动态插槽名
+
+::: details 代码演示
+
+::: code-group
+
+```vue [父组件]
+<script setup lang="ts">
+import SlotSon from "./SlotSon.vue";
+import { ref } from "vue";
+// 插槽名称变量
+const slotName = ref("title");
+</script>
+<template>
+  <div class="father">
+    <h3>我是父组件</h3>
+       <!-- 传递给子组件 -->
+       <SlotSon :slotName="slotName">
+           <!-- 动态插槽名 -->
+           <template #[slotName]>
+        <p>插入指定的位置</p>
+             </template
+      >
+       
+    </SlotSon>
+  </div>
+</template>
+```
+
+```vue [子组件]
+<script setup lang="ts">
+const props = defineProps<{ slotName: string }>();
+</script>
+
+<template>
+  <div class="son">
+    <h3>我是子组件</h3>
+    <!-- 定义插槽名称使用 props 中的变量 -->
+    <slot :name="props.slotName"></slot>
+  </div>
+</template>
+```
+
+:::
+
+- 渲染作用域：父组件模板中的表达式只能访问父组件的作用域；子组件模板中的表达式只能访问子组件的作用域。
+- 作用域插槽：父组件访问子组件的变量
+
+::: details 代码演示
+
+::: code-group
+
+```vue [子组件]
+<script setup lang="ts">
+import { ref } from "vue";
+const message = ref("子组件的信息");
+</script>
+
+<template>
+  <div class="son">
+    <h3>我是子组件</h3>
+    <!-- 传递 message 给父组件 -->
+    <slot name="james" :message="message"></slot>
+  </div>
+</template>
+```
+
+```vue [父组件]
+<script setup lang="ts">
+import SlotSon from "./SlotSon.vue";
+</script>
+
+<template>
+  <div class="father">
+    <h3>我是父组件</h3>
+    <SlotSon>
+      <!-- slotProps 就是 slot 标签上的 props -->
+      <template #james="slotProps">
+        <p>{{ slotProps.message }}</p>
+      </template>
+    </SlotSon>
+  </div>
+</template>
+```
+
+:::
