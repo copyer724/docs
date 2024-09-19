@@ -371,3 +371,8 @@ import SlotSon from "./SlotSon.vue";
 ```
 
 :::
+
+## 执行时机
+
+- setup 大多数只会执行一次，就算响应式变量改变时，也不会触发
+- 自定义 hooks 也执行触发一次

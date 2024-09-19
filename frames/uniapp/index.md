@@ -59,6 +59,18 @@ npx degit dcloudio/uni-preset-vue#vite-ts my-vue3-project
 - 默认支持 scss, style 标签中还是需要开启 lang='scss'。
 - 背景图片：支持 base64, 支持网络图片；而小程序不支持在 css 中使用本地文件，需要使用 base64。小于 40kb 的图片，可以使用 base64，而大于 40kb 的图片，需要使用网络地址；背景图片也支持使用 `~@/`绝对路径。（小程序的图片转化成 base64,必须放在 static 文件夹下，不能在二级目录下，就不能转化）
 
+### 重写 uni-app 组件样式
+
+```css
+/* 方案一：样式穿透 */
+:deep(.a) {
+}
+
+/* 方案二：全局样式 */
+:global(.a) {
+}
+```
+
 ### 单位
 
 - 标准设计稿以 750px 进行设计
@@ -122,3 +134,142 @@ export default {
 ### 开发注意事项
 
 - 修改配置文件后，需要重启才能生效。
+
+### 跨平台兼容
+
+- 编译器：
+- 运行时：
+
+### 条件编译
+
+条件编译是用特殊的注释作为标记，在编译时根据这些特殊的注释，将注释里面的代码编译到不同平台。
+
+- `#ifdef`: if defined 仅在某平台存在
+- `#ifndef`: if not defined 除了某平台
+
+平台有：
+
+- VUE3
+- APP-PLUS：APP
+- H5：H5
+- MP-WEIXIN：微信小程序
+- MP-ALIPAY：支付宝小程序
+
+```css
+/* CSS */
+/* #ifdef %PALTFORM% */
+编写
+/* #endif */
+```
+
+```js
+// js
+// #ifdef %PALTFORM%
+编写;
+// #endif
+```
+
+### 页面通信
+
+- url
+
+::: details 代码演示
+如果针对 url 的传递方式，不仅可以在 onLoad 的 options 中获取到，也可以在 props 中获取到
+
+```ts
+// props 就会存在 url 传递过来的信息
+const props = defineProps<{ name: string }>();
+```
+
+:::
+
+- url 绑定 eventChannel: 正向和逆向传递
+
+::: details 代码演示
+
+::: code-group
+
+```ts [正向]
+/** 上一个页面 */
+uni.navigateTo({
+  url: "/pages/test?id=1",
+  success: function (res) {
+    // 页面调整成功之后，通过 eventChannel 触发一个事件，传递信息
+    res.eventChannel.emit("acceptDataFromOpenerPage", {
+      data: "data from starter page",
+    });
+  },
+});
+
+/** 下一个页面 */
+import { onLoad } from "@dcloudio/uni-app";
+import { onMounted, getCurrentInstance } from "vue";
+// 通过页面的生命周期注册监听事件，emit 之后就会触发 on
+onLoad(() => {
+  const instance = getCurrentInstance()?.proxy;
+  const eventChannel = (instance as any)?.getOpenerEventChannel();
+  eventChannel.on("aaa", function (data: any) {
+    console.log("aaa1", data);
+  });
+});
+```
+
+```ts [逆向]
+目前代码报错，还在尝试
+```
+
+:::
+
+- 事件总线： `uni.$emit` `uni.$on` `uni.$off`
+
+::: details 代码演示
+
+只能先注册在触发，也就是逆向传递数据的场景
+
+::: code-group
+
+```ts [上一个页面]
+/**
+ * 先在前面页面注册事件，后续才能触发
+ */
+import { onLoad, onUnLoad } from "@dcloudio/uni-app";
+onLoad(() => {
+  uni.$on("homeEvent", (res) => {
+    console.log("res======>", res);
+  });
+});
+
+onUnLoad(() => {
+  // 学会卸载操作
+  uni.$off("homeEvent");
+});
+```
+
+```ts [下一个页面]
+/**
+ * 返回时在触发前面绑定的事件
+ */
+const back = () => {
+  uni.navigateBack({
+    delta: 1,
+  });
+  uni.$emit("homeEvent", { data: "返回过来的数据" });
+};
+```
+
+:::
+
+- 数据缓存
+- 状态库：vuex | pinia
+
+### 生命周期
+
+- 应用生命周期： onLaunch、onShow、onHide
+- 组件生命周期
+- 页面生命周期：onLoad, onShow, onReady, onUnload, onHide (打开新页面，不会执行 onUnload, 执行 onHide, 返回时，会执行 onUnload)
+
+### 组件
+
+学习 easycom 组件模式
+
+easycom 组件模式，满足规则即可
