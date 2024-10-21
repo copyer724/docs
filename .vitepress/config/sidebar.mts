@@ -40,7 +40,7 @@ const sides = [
   },
   {
     text: "interview",
-    children: ["handRealize", "stereotypedWriting"],
+    children: ["handRealize", "stereotypedWriting", "projects"],
   },
 ];
 
