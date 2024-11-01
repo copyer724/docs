@@ -28,7 +28,7 @@ const sides = [
   },
   {
     text: "servers",
-    children: ["node", "express", "koa", "nest", "sql"],
+    children: ["node", "express", "koa", "nest", "sql", "tool"],
   },
   {
     text: "leetcode",
