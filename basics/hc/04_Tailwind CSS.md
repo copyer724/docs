@@ -48,3 +48,15 @@ module.exports = {
   },
 };
 ```
+
+## 内置三部分
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+- base 部分：样式重置，保证样式每端一致
+- components 部分：内置组件样式
+- utilities 部分：核心原子化样式类
