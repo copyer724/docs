@@ -4,7 +4,42 @@
 
 Prisma 创造了一种 DSL（Domain Specific Language，领域特定语言）。
 
-具体流程：把表映射成了 DSL 里的 model，然后编译这个 DSL 会生成 prismaClient 的代码，之后就可以调用它的 find、delete、create 等 api 来做 CRUD 了。
+具体流程：把表映射成了 DSL 里的 model，然后编译这个 DSL 会生成 `prismaClient` 的代码，之后就可以调用它的 find、delete、create 等 api 来做 CRUD 了。
+
+先在项目中，安装一下：
+
+```bash
+pnpm install prisma --save-dev # 安装到开发依赖
+```
+
+## prisma 指令
+
+查看 prisma 的所有指令，使用 `npx prisma -h`
+
+<img src="/images/servers/sql/prisma01.png" />
+
+- init：创建 schema 文件
+- generate： 根据 shcema 文件生成 client 代码
+- db：同步数据库和 schema
+- migrate：生成数据表结构更新的 sql 文件
+- studio：用于 CRUD 的图形化界面，查询 api 的使用方法
+- validate：检查 schema 文件的语法错误（vscode 安装 prisma 插件即可）
+- format：格式化 schema 文件（vscode 安装 prisma 插件即可）
+- version：版本信息
+
+::: tip
+针对上面的指令，都可以通过 `npx prisma xxx -h` 查看各个指令的具体用法，有具体的使用说明。
+:::
+
+比如说： `npx prisma init -h`
+
+<img src="/images/servers/sql/prisma02.png" />
+
+其他的指令也是这样的。接下来就看看常用的几个指令（也就是平时开发过程中，会经常接触的）
+
+## prisma schema 语法
+
+## prisma CRUD api
 
 ## 犯错点
 
