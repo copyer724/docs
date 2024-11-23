@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "Copyer"
+  name: "Actor"
   text: "石膏银码农"
   tagline: 当什么困难都没有了，机会也就随之没有了。
   image:
@@ -56,3 +56,8 @@ features:
 - 工具函数搭建
 - leetcode
 - like-admin 的系统开发
+
+### 后续动作
+
+- vue3 源码赏析：https://www.bilibili.com/video/BV13YDmYWEbx/?spm_id_from=333.999.0.0&vd_source=73b012c3730a25fea48281b3af665c0e
+- React18 源码赏析：https://www.bilibili.com/video/BV1SDm2Y3ETD/?spm_id_from=333.999.0.0&vd_source=73b012c3730a25fea48281b3af665c0e

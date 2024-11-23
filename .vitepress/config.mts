@@ -8,7 +8,7 @@ import { baseUrl } from "./config/config";
 export default defineConfig({
   title: "石膏银码农",
   base: baseUrl,
-  description: "Copyer",
+  description: "Actor",
   head: [
     ["link", { rel: "icon", href: "/docs/logo.svg" }], //favicon图标设置
     [
@@ -50,7 +50,7 @@ export default defineConfig({
     },
     footer: {
       message: "石膏银码农",
-      copyright: "Copyright by @Copyer 2024-01-01",
+      copyright: "Copyright by @Actor 2024-01-01",
     },
   },
   vite: {

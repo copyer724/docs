@@ -19,7 +19,7 @@ pnpm install prisma --save-dev # 安装到开发依赖
 <img src="/images/servers/sql/prisma01.png" />
 
 - init：创建 schema 文件
-- generate： 根据 shcema 文件生成 client 代码
+- generate： 根据 schema 文件生成 client 代码
 - db：同步数据库和 schema
 - migrate：生成数据表结构更新的 sql 文件
 - studio：用于 CRUD 的图形化界面，查询 api 的使用方法
@@ -27,8 +27,8 @@ pnpm install prisma --save-dev # 安装到开发依赖
 - format：格式化 schema 文件（vscode 安装 prisma 插件即可）
 - version：版本信息
 
-::: tip
-针对上面的指令，都可以通过 `npx prisma xxx -h` 查看各个指令的具体用法，有具体的使用说明。
+::: tip 温馨提示
+针对上面的指令，都可以通过 `npx prisma xxx -h` 查看各个指令的具体用法，也有举例说明。
 :::
 
 比如说： `npx prisma init -h`
@@ -36,6 +36,34 @@ pnpm install prisma --save-dev # 安装到开发依赖
 <img src="/images/servers/sql/prisma02.png" />
 
 其他的指令也是这样的。接下来就看看常用的几个指令（也就是平时开发过程中，会经常接触的）
+
+### init
+
+初始化指令，会生成 `prisma/shcema.prisma` 和 `.env` 文件。
+
+```bash
+prisma init
+
+prisma init --datasource-provider mysql # 指定连接的数据库
+
+prisma init --url mysql://xxx:yyy@localhost:3306/prisma_test # 连接数据库信息
+```
+
+### db
+
+schema 与数据库之间的交互
+
+```bash
+prisma db pull # 数据库拉取生成 model
+prisma db push # 根据 model 生成数据库（数据库里面的表都会进行删除，在执行该命令之前，一定要先 pull 一下）
+prisma db seed # 执行脚本插入初始数据到数据库（少用）
+prisma db execute # 执行 SQL 语句
+
+# --file 执行 SQL 文件，-- shcama 读取数据库配置信息
+prisma db execute --file prisma/test.sql --schema prisma/schema.prisma
+```
+
+针对 seed 的指令执行，需要在 package.json 中添加 seed 指令，prisma 会执行解析
 
 ## prisma schema 语法
 
@@ -91,7 +119,7 @@ prisma db execute # 执行 SQL 语句
 prisma db execute --file prisma/test.sql --schema prisma/schema.prisma
 ```
 
-```json [pageage.json]
+```json [package.json]
 {
   "prisma": {
     "seed": "npx ts-node prisma/seed.ts"
