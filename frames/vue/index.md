@@ -24,3 +24,7 @@
 ## 技术升级
 
 - [vue3.5 升级要点](https://blog.vuejs.org/posts/vue-3-5)
+
+## mini-vue 实现
+
+- [mini-vue 开发环境搭建](./深入原理/05_mini-vue%20开发环境搭建.md)
