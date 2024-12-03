@@ -40,6 +40,12 @@ features:
     details: 企业级的 Node 框架，Node 中的 SpringBoot。
     link: minds/nestjs.md
     linkText: 知识脑图
+  - title: TypeScript
+    icon:
+      src: /images/mind/ts.svg
+    details: JavaScript 的超集，用于构建大型应用。
+    link: minds/ts.md
+    linkText: 知识脑图
 ---
 
 ### 新知识学习步骤

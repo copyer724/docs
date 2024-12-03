@@ -28,14 +28,16 @@ pnpm install prisma --save-dev # 安装到开发依赖
 - version：版本信息
 
 ::: tip 温馨提示
-针对上面的指令，都可以通过 `npx prisma xxx -h` 查看各个指令的具体用法，也有举例说明。
+针对上面的指令，都可以使用 `npx prisma xxx -h` 来查看各自的具体用法。
 :::
 
-比如说： `npx prisma init -h`
+拿 init 来举例： `npx prisma init -h`
 
 <img src="/images/servers/sql/prisma02.png" />
 
-其他的指令也是这样的。接下来就看看常用的几个指令（也就是平时开发过程中，会经常接触的）
+其他的指令情况也都是如此的。
+
+接下来就看看在开发过程中常用的几个指令：
 
 ### init
 
@@ -51,11 +53,13 @@ prisma init --url mysql://xxx:yyy@localhost:3306/prisma_test # 连接数据库�
 
 ### db
 
-schema 与数据库之间的交互
+创建完 schema 文件之后，就需要对 schema 进行定义，与数据库进行交互。
+
+继续使用 `npx prisma db -h`，你会发现有四个指令
 
 ```bash
-prisma db pull # 数据库拉取生成 model
-prisma db push # 根据 model 生成数据库（数据库里面的表都会进行删除，在执行该命令之前，一定要先 pull 一下）
+prisma db pull # 拉取数据库的结构，生成 model
+prisma db push # 根据 model 生成数据库表（数据库里面的表都会进行删除，在执行该命令之前，一定要先 pull 一下）
 prisma db seed # 执行脚本插入初始数据到数据库（少用）
 prisma db execute # 执行 SQL 语句
 
@@ -63,11 +67,148 @@ prisma db execute # 执行 SQL 语句
 prisma db execute --file prisma/test.sql --schema prisma/schema.prisma
 ```
 
-针对 seed 的指令执行，需要在 package.json 中添加 seed 指令，prisma 会执行解析
+针对 seed 的指令执行，需要在 package.json 中添加 prisma 指令。
+
+```json [package.json]
+{
+  "script": {},
+  "prisma": {
+    "seed": "npx ts-node prisma/seed.ts"
+  }
+}
+```
+
+然后执行 `prisma db seed` 就可以执行 SQL 语句，初始数据到数据库。
+
+其实也不难发现，也就是使用 ts-node 来执行的 seed.ts 文件。
+
+整体结构就是这样的，
+
+<img src="/images/servers/sql/prisma03.png" />
+
+### migrate
+
+使用 `db pull` 或者 `db push`使本地 scheme 和数据库保持一致后，但后续发生变动时，就需要同步：
+
+- 当数据库发生结构变化，使用 db pull 来更新 scheme
+- 当 schema 发生变动，使用 db push 来更新数据库表结构
+
+::: danger 这里会存在一个问题，就是无论是拉取还是推送，只是数据库和 scheme 的结构保持一致了，但是会存在问题，其一 @prisma/client 是没有更新的；其二，结构变化了，数据也是没有推送的（删除还好说，新增的话，数据时没有新增的）。
+:::
+
+那么 prisma 提供了 migrate 指令来解决这个问题，该指令用于迁移。
+
+这里的迁移指的是表的结构发生了变化。
+
+```bash
+npx prisma migrate -h
+```
+
+<img src="/images/servers/sql/prisma04.png" />
+
+这里的 `npx prisma migrate dev --name xxx` 是多个指令的集合
+
+1. `prisma generate`: 更新 @prisma/client
+2. `prisma db push`: 同步数据库表结构
+3. `prisma db seed`: 同步表的数据
+4. `--name xxx`：是用于记录迁移文件命名（日期+xxx）
+
+案例演示：
+
+旧的 model 和数据展示
+
+<img src="/images/servers/sql/prisma05.png" />
+
+现在增加一个 sex 字段，int 类型
+
+```prisma
+model user {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+  age  Int
+  sex  Int    @db.TinyInt // [!code ++]
+}
+```
+
+当执行 `npx prisma migrate dev --name add_sex` 时
+
+<img src="/images/servers/sql/prisma06.png" />
+
+报错的原因，很简单，添加了 sex 字段，更新了 @prisma/client 的代码，但是
+
+<img src="/images/servers/sql/prisma07.png" />
+
+明确表示了，缺少 sex 字段，这是必填的。
+
+解决办法，两种方案：
+
+- 方案一：修改 seed.ts 文件，添加 sex 字段，然后执行执行命令
+
+```ts [seed.ts]
+const user = await prisma.user.createMany({
+  data: [
+    {
+      name: "copyer",
+      age: 23,
+      sex: 1, // [!code ++]
+    },
+  ],
+});
+```
+
+- 方案二：使 sex 变为可选字段，也就是说可以设置为 null
+
+```prisma
+model user {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+  age  Int
+  sex  Int?    @db.TinyInt // [!code ++]
+}
+```
+
+以上两种方案，都能解决。
+
+迁移日志文件记录着，执行的 SQL 语句来更新数据库
+
+<img src="/images/servers/sql/prisma08.png" />
+
+dev 指令的用法就是这样了。
+
+还有一个 reset 指令
+
+```bash
+npx prisma migrate reset
+```
+
+- 删除表中所有数据（表中可能存在脏数据）
+- 执行所有的日志文件（也就是 SQL 集合）
+- 更新 @prisma/client 代码
+- 执行 seed.ts 来初始化数据
+
+:::warning 生产环境还有几个指令，当后续使用 prisma 接触到生产环境时，在更新。
+:::
+
+### generate
+
+生成 prisma client 代码，用于操作数据库。
+
+使用 `npx prisma migrate dev` 就可以省略这一步
+
+### 其他指令
+
+- format：格式化(借用 vscode 插件完成: prisma)
+- validate：检查(借用 vscode 插件完成: prisma)
+- studio：图形化界面（CRUD 时有用）
+  -version: 版本信息
+
+都是一些辅助指令，了解即可。
 
 ## prisma schema 语法
 
 ## prisma CRUD api
+
+=============================
 
 ## 犯错点
 
