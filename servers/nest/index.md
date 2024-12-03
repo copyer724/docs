@@ -12,19 +12,6 @@ Nest 是对标 Java 的 Spring 框架的后端框架，它有很多概念。
 
 把基础知识打牢，形成知识体系网，后续开发才能真正的是一个合格的后端开发者。
 
-### 基础语法及知识
-
-- [Nest 实战学习](./00_nest%20实战学习.md)
-- [Nest 基础语法](./01_Nest%20基础语法.md)
-- [Nest 内置模块](./02_nest%20内置模块.md)
-- [restful 及设计规范](./03_RESTful及设计规范.md)
-- [Nest 功能封装](./04_Nest%20功能封装.md)
-- [Nest 集成 Swagger](./05_Nest%20集成%20Swagger.md)
-- [文件上传](./07_文件上传.md)
-- [dto 验证](./08_dto%20的验证.md)
-- [理解 Nest 中的 AOP](./09_理解Nest中的AOP.md)
-- [详解 Nest 中的 AOP](./10_详解Nest中的AOP.md)
-
 ### 项目路径结构
 
 ```ts
