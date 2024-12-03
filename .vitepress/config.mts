@@ -6,7 +6,7 @@ import { baseUrl } from "./config/config";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "石膏银码农",
+  title: "开发知识宝典",
   base: baseUrl,
   description: "Actor",
   head: [
@@ -49,7 +49,7 @@ export default defineConfig({
       next: "下一篇",
     },
     footer: {
-      message: "石膏银码农",
+      message: "开发知识宝典",
       copyright: "Copyright by @Actor 2024-01-01",
     },
   },
