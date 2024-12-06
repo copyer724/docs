@@ -49,3 +49,24 @@ defineProps<{ name: ColumnProps }>();
 
 - 动态插槽名
 - 插槽传递数据
+
+- PropType
+
+在 Vue 3 中，PropType 是一个用于定义组件 props 类型的实用工具类型，它允许你指定 props 的类型，并在 TypeScript 环境中提供类型检查和自动补全功能。PropType 是从 vue 包中导入的，通常与 defineComponent 方法一起使用。
+
+```ts
+import { PropType } from "vue";
+
+export default defineComponent({
+  props: {
+    message: String as PropType<string>,
+    count: Number as PropType<number>,
+    isDisabled: Boolean as PropType<boolean>,
+    items: Array as PropType<{ id: number; name: string }[]>,
+    handler: Function as PropType<() => void>,
+    style: Object as PropType<{ [key: string]: string }>,
+  },
+});
+```
+
+PropType 指定 ts 的类型

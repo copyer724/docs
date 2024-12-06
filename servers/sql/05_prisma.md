@@ -4,7 +4,7 @@
 
 Prisma 创造了一种 DSL（Domain Specific Language，领域特定语言）。
 
-具体流程：把表映射成了 DSL 里的 model，然后编译这个 DSL 会生成 `prismaClient` 的代码，之后就可以调用它的 find、delete、create 等 api 来做 CRUD 了。
+具体流程：把表映射成了 DSL 里的 model，然后编译这个 DSL 会生成 `prismaClient` 的代码，之后就可以调用它的 find、delete、create 等 api 来做 crud 了。
 
 先在项目中，安装一下：
 
@@ -88,12 +88,12 @@ prisma db execute --file prisma/test.sql --schema prisma/schema.prisma
 
 ### migrate
 
-使用 `db pull` 或者 `db push`使本地 scheme 和数据库保持一致后，但后续发生变动时，就需要同步：
+使用 `db pull` 或者 `db push`使本地 schema 和数据库保持一致后，但后续发生变动时，就需要同步：
 
-- 当数据库发生结构变化，使用 db pull 来更新 scheme
+- 当数据库发生结构变化，使用 db pull 来更新 schema
 - 当 schema 发生变动，使用 db push 来更新数据库表结构
 
-::: danger 这里会存在一个问题，就是无论是拉取还是推送，只是数据库和 scheme 的结构保持一致了，但是会存在问题，其一 @prisma/client 是没有更新的；其二，结构变化了，数据也是没有推送的（删除还好说，新增的话，数据时没有新增的）。
+::: danger 这里会存在一个问题，就是无论是拉取还是推送，只是数据库和 schema 的结构保持一致了，但是会存在问题，其一 @prisma/client 是没有更新的；其二，结构变化了，数据也是没有推送的（删除还好说，新增的话，数据时没有新增的）。
 :::
 
 那么 prisma 提供了 migrate 指令来解决这个问题，该指令用于迁移。
@@ -200,15 +200,166 @@ npx prisma migrate reset
 - format：格式化(借用 vscode 插件完成: prisma)
 - validate：检查(借用 vscode 插件完成: prisma)
 - studio：图形化界面（CRUD 时有用）
-  -version: 版本信息
+- version: 版本信息
 
 都是一些辅助指令，了解即可。
 
 ## prisma schema 语法
 
+在上面的介绍中，已经大致了解了 prisma 指令的用法。无论是什么指令，都是对 `prisma/schema.prisma` 文件进行操作。
+
+接下来就熟悉 schema 文件里面的语法。
+
+- `datasource` 关键词
+
+当项目创建之初，我们就会执行 `npx prisma init` 指令，就会开始配置数据库信息，数据库名，用户，密码等等
+
+```prisma [prisma/schema.prisma]
+// 数据库连接信息配置
+datasource db {
+  provider = "mysql" // 数据库类型
+  url      = env("DATABASE_URL")  // 数据库连接信息
+}
+```
+
+- `generator` 关键词
+
+generator 是生成的意思，一般也就是指生成 @prisma/client 的最新代码。
+
+@prisma/client 默认生成的路径在：**node_modules/@prisma/client**，但是可以进行修改，指定 output 属性来进行修改。
+
+```prisma [prisma/schema.prisma]
+generator client {
+  provider = "prisma-client-js",
+  output   = "../generated/client" // [!code ++]
+}
+```
+
+除了 @prisma/client, 其实也可以安装一些社区的三方包，生成可视化文档，比如：
+
+1. prisma-docs-generator：生成 docs 文档，通过 http-server 来进行启动，对 crud 非常有用
+2. prisma-json-schema-generator：生成 JSON
+
+先安装
+
+```bash
+pnpm install prisma-docs-generator prisma-json-schema-generator -D
+
+```
+
+再使用
+
+```prisma
+generator docs {
+  provider = "node node_modules/prisma-docs-generator"
+  output   = "../generated/docs"
+}
+
+generator json {
+  provider = "prisma-json-schema-generator"
+  output   = "../generated/json"
+}
+```
+
+通过 live-server 来启动 docs 来看看，实际效果。
+
+<img src="/images/servers/sql/prisma09.png" />
+
+- `model` 关键词
+
+model 就是用来定义数据库模型的，其语法最终为被转化为 SQL 语句，同步到数据库。
+
+```prisma [prisma/schema.prisma]
+// 定义枚举值
+enum Status {
+  AAA
+  BBB
+  CCC
+}
+
+model Test {
+  // id int类型 自动增长
+  id         Int      @id @default(autoincrement())
+  // name varchar(50) 长度，唯一性
+  name       String   @unique @db.VarChar(50)
+  // age  int类型  重新取名：new_age
+  age        Int      @map("new_age")
+  // 性别，可选
+  sex        Int?     @db.TinyInt
+  // 启用/禁用  布尔类型 默认值为 true
+  enable     Boolean  @default(true)
+  // createTime 时间格式类型 默认值为当前创建时间 now()
+  createTime DateTime @default(now())
+  // updateTime 时间格式类型，跟随更新 @upadteAt
+  updateTime DateTime @updatedAt
+  // 枚举
+  status     Status   @default(AAA)
+
+  // 表名test改名为new_test
+  @@map("new_test")
+  // 定义索引
+  @@index([id])
+}
+```
+
+很容易看出上面的书写规则：第一列是字段名，第二列是类型，第三列是一些其他信息。
+
+**类型**：
+
+- `Int`: 数字类型
+- `String`: 字符串
+- `Boolean`: 波尔类型
+- `DateTime`: 时间类型
+- 自定义枚举
+
+也可以添加一个 `?` 表示该字段是可选的，可以为 null。
+
+针对**其他信息**的定义，其实大致跟 SQL 语句的关键词是保持一致的
+
+- `@id` 定义主键
+- `@default` 设置默认值： **@default(autoincrement())**: 主键自动增长；**@default(now())**: 默认当前时间; **@default(true)**: 默认值为 true
+- `@unique` 添加唯一约束
+- `@map` 重命名字段名称，敏感大小写
+- `@@index` 定义索引
+- `@@map` 重命名表名，敏感大小写
+- `@db.xxx` 更加具体化类型，跟 sql 类型是一致的（其实类型大致就分为三种）
+
+字符串
+<img src="/images/servers/sql/prisma10.png" style="zoom: 50%" />
+数字
+<img src="/images/servers/sql/prisma11.png" style="zoom: 50%" />
+时间
+<img src="/images/servers/sql/prisma12.png" style="zoom: 50%" />
+
+上面是一张表的定义，也就是一个 model；如果存在多个 model，那么就是多个表，表与表之间的关联，这些又是怎么样的呢？
+
+继续看案列：
+
+表与表：一对多
+
+```prisma [prisma/schema.prisma]
+// 数学老师
+model MathTeacher {
+  id       Int       @id @default(autoincrement())
+  name     String    @db.VarChar(20)
+  // 一个数学老师对应多个学生
+  students Student[]
+}
+
+// 学生
+model Student {
+  id            Int         @id @default(autoincrement())
+  name          String      @unique
+  // 先定义一个关联 mathTeacherId
+  mathTeacherId Int
+  // 建立外键
+  mathTeacher   MathTeacher @relation(fields: [mathTeacherId], references: [id])
+}
+```
+
 ## prisma CRUD api
 
-=============================
+==========================================================
 
 ## 犯错点
 
@@ -327,6 +478,31 @@ generator json {
 `prisma format`: 格式化
 
 ## prisma 语法
+
+在上面的介绍中，已经大致了解了 prisma 指令的用法。无论是什么指令，都是对 `prisma/schema.prisma` 文件进行操作。
+
+接下来就熟悉 schema 文件里面的语法。
+
+```prisma [prisma/schema.prisma]
+// 数据库连接信息配置
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+```
+
+```prisma [prisma/schema.prisma]
+// @prisma/client 代码配置信息
+generator client {
+  provider = "prisma-client-js"
+}
+
+// 数据库连接信息
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+```
 
 ### model 语法
 

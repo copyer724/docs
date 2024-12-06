@@ -1,55 +1,49 @@
 {
-  "hash": "d4690cf8",
-  "configHash": "cc53ae22",
-  "lockfileHash": "98a7a7a4",
-  "browserHash": "79110480",
+  "hash": "824953c9",
+  "configHash": "71f04af3",
+  "lockfileHash": "78a9a0c5",
+  "browserHash": "da93e23f",
   "optimized": {
     "vue": {
-      "src": "../../../node_modules/.pnpm/vue@3.4.5/node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "src": "../../../node_modules/.pnpm/vue@3.5.13/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "e1cb05a8",
+      "fileHash": "f3689b17",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
-      "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.0.27_vue@3.4.22/node_modules/@vue/devtools-api/dist/index.js",
+      "src": "../../../node_modules/.pnpm/@vue+devtools-api@7.6.7/node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "7a796bd6",
+      "fileHash": "6125ea44",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
-      "src": "../../../node_modules/.pnpm/@vueuse+core@10.9.0_vue@3.4.22/node_modules/@vueuse/core/index.mjs",
+      "src": "../../../node_modules/.pnpm/@vueuse+core@11.3.0_vue@3.5.13/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "e6be5103",
+      "fileHash": "1eae51f8",
       "needsInterop": false
     },
     "markmap-lib": {
-      "src": "../../../node_modules/.pnpm/markmap-lib@0.17.0_markmap-common@0.17.0/node_modules/markmap-lib/dist/browser/index.mjs",
+      "src": "../../../node_modules/.pnpm/markmap-lib@0.17.2_markmap-common@0.17.1/node_modules/markmap-lib/dist/browser/index.mjs",
       "file": "markmap-lib.js",
-      "fileHash": "fd02dfac",
+      "fileHash": "a95b280f",
       "needsInterop": false
     },
     "markmap-view": {
-      "src": "../../../node_modules/.pnpm/markmap-view@0.17.0_markmap-common@0.17.0/node_modules/markmap-view/dist/index.js",
+      "src": "../../../node_modules/.pnpm/markmap-view@0.17.2_markmap-common@0.17.1/node_modules/markmap-view/dist/index.js",
       "file": "markmap-view.js",
-      "fileHash": "24e246dc",
+      "fileHash": "3da6ef00",
       "needsInterop": false
-    },
-    "autoprefixer": {
-      "src": "../../../node_modules/.pnpm/autoprefixer@10.4.19_postcss@8.4.38/node_modules/autoprefixer/lib/autoprefixer.js",
-      "file": "autoprefixer.js",
-      "fileHash": "e397bef6",
-      "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-HSWD3ZJ3": {
-      "file": "chunk-HSWD3ZJ3.js"
+    "chunk-JM2WBDOF": {
+      "file": "chunk-JM2WBDOF.js"
     },
-    "chunk-KT7DAYJA": {
-      "file": "chunk-KT7DAYJA.js"
+    "chunk-CQOUZRMK": {
+      "file": "chunk-CQOUZRMK.js"
     },
-    "chunk-ZS7NZCD4": {
-      "file": "chunk-ZS7NZCD4.js"
+    "chunk-G3PMV62Z": {
+      "file": "chunk-G3PMV62Z.js"
     }
   }
 }
